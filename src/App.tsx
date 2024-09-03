@@ -13,9 +13,25 @@ const App: React.FC = () => {
   const [chiiCount, setChiiCount] = useState<number>(0);
   const [kanCount, setKanCount] = useState<number>(0);
 
+  //選択された牌の記録
+  const [selectedTiles, setSelectedTiles] = useState<(string | null)[]>(Array(14).fill(null));
+
+  //麻雀牌クリックによる牌ロットへの追加処理
+  const handleTilesClick = (tile: string) => {
+    //ロットに空欄があることを確認(あれば最初のインデックスを返し、なければ-1を返す)
+    const index = selectedTiles.findIndex(tile => tile === null);
+    if (index !== -1) {
+      const newTiles = [...selectedTiles];
+      newTiles[index] = tile;
+      setSelectedTiles(newTiles);
+    }
+  };
+
   return (
     <div className='container'>
+      {/*タイトル*/}
       <h1 className='title'>麻雀点数計算</h1>
+      {/*オプションボタン*/}
       <div className='option-container'>
         <div className='naki-option-set1'>
           鳴き：
@@ -50,6 +66,12 @@ const App: React.FC = () => {
           onClick={setKanCount}
           label='カン'
         />
+      </div>
+      {/*麻雀牌の選択肢*/}
+      <div className="tiles-row">
+        {tilesImages.map((src, index) => (
+          <img key={index} src={src} alt={`Tiles ${index + 1}`} onClick={() => handleTilesClick(src)} className="tiles" />
+        ))}
       </div>
     </div>
   )

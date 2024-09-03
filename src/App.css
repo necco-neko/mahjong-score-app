@@ -53,3 +53,18 @@ body {
   border-radius: 10px;
   margin: 5px;
 }
+
+.tiles-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tiles, selected-tiles img {
+  width: 47px;
+  height: 63px;
+  margin: 5px;
+  cursor: pointer;
+  object-fit: cover;
+}
