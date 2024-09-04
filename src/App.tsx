@@ -33,7 +33,33 @@ const App: React.FC = () => {
     setSelectedTiles(Array(14 + kanCount).fill(null));
   }, [kanCount]);
 
-console.log(selectedTiles.length);
+  //一つ戻るボタンの処理
+  const backTiles = () => {
+    const newTiles = [...selectedTiles];
+    for (let i = newTiles.length - 1; i >= 0; i--) {
+      if (newTiles[i] !== null) {
+        newTiles[i] = null;
+        break;
+      }
+    }
+    setSelectedTiles(newTiles);
+  };
+
+  //牌リセットボタンの処理
+  const resetTiles = () => {
+    setSelectedTiles(Array(14 + kanCount).fill(null))
+  };
+
+  //全リセットボタンの処理
+  const resetAll = () => {
+    setSelectedOption1(false);
+    setSelectedOption2(false);
+    setSelectedOption3(false);
+    setPonCount(0);
+    setChiiCount(0);
+    setKanCount(0);
+    setSelectedTiles(Array(14).fill(null));
+  };
 
   return (
     <div className='container'>
@@ -89,6 +115,12 @@ console.log(selectedTiles.length);
         selectedOption1={selectedOption1} 
         selectedTiles={selectedTiles} 
       />
+      {/*リセットボタン各種*/}
+      <div className='button-container'>
+        <button onClick={backTiles}>一つ戻る</button>
+        <button onClick={resetTiles}>牌リセット</button>
+        <button onClick={resetAll}>全リセット</button>
+      </div>
     </div>
   )
 }

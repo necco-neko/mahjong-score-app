@@ -39,6 +39,7 @@ body {
 .option-button {
   border: 1px solid gray;
   background-color: gray;
+  cursor: pointer;
   font-size: 30px;
   font-weight: bold;
   border-radius: 10px;
@@ -48,6 +49,7 @@ body {
 .option-button.selected {
   border: 1px solid white;
   background-color: white;
+  cursor: pointer;
   font-size: 30px;
   font-weight: bold;
   border-radius: 10px;
@@ -98,4 +100,35 @@ body {
   text-align: right;
   margin-right: 10px;
   margin-top: -30px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin: 20px;
+}
+
+.button-container button {
+  font-size: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  border: 1px solid white;
+  border-radius: 4px;
+  background-color: white;
+  transition: background-color 0.3s ease;
+}
+
+.button-container button:hover {
+  background-color: lightgray;
+}
+
+.reset-button {
+  margin-left: 80%;
+  margin-top: 20px;
+  border: 1px solid white;
+  background-color: white;
+  font-size: 30px;
+  font-weight: bold;
+  border-radius: 10px;
 }
