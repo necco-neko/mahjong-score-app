@@ -13,14 +13,14 @@ interface SelectedTilesRowProps {
 export const SelectedTilesRow: React.FC<SelectedTilesRowProps> = ({ ponCount, chiiCount, kanCount, selectedOption1, selectedTiles }) => {
     const nakiCount = ponCount + chiiCount + kanCount
     if (!selectedOption1) {
-        const handNum = 12 - kanCount * 3
+        const handNum = 13 - kanCount * 3
         return (
             <div>
                 <HandContainer
                     label='手牌'
                     tiles={selectedTiles}
                     startIndex={0}
-                    endIndex={handNum}
+                    endIndex={handNum - 1}
                 />
                 {[...Array(kanCount)].map((_, index) => (
                     <HandContainer
@@ -44,14 +44,14 @@ export const SelectedTilesRow: React.FC<SelectedTilesRowProps> = ({ ponCount, ch
             <div className="error-text">鳴き回数の合計が4回を超えています</div>
         )
     } else {
-        const handNum = 12 - nakiCount * 3;
+        const handNum = 13 - nakiCount * 3;
         return (
             <div>
                 <HandContainer
                     label='手牌'
                     tiles={selectedTiles}
                     startIndex={0}
-                    endIndex={handNum}
+                    endIndex={handNum - 1}
                 />
                 {[...Array(ponCount)].map((_, index) => (
                     <HandContainer
