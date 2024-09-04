@@ -68,3 +68,34 @@ body {
   cursor: pointer;
   object-fit: cover;
 }
+
+.error-text {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.hand-container {
+  display: flex;
+  align-items: center;
+}
+
+.selected-tiles {
+  width: 47px;
+  height: 63px;
+  border: 2px solid white;
+  margin-right: -2px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hand-label {
+  width: 111px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: right;
+  margin-right: 10px;
+  margin-top: -30px;
+}

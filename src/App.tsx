@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import tilesImages from './tilesImages';
 import { OptionButton1, OptionButton2} from './components/OptionButton';
+import { SelectedTilesRow } from './components/SelectedTilesRow';
 
 
 const App: React.FC = () => {
@@ -26,6 +27,13 @@ const App: React.FC = () => {
       setSelectedTiles(newTiles);
     }
   };
+
+  //選択されたカンの回数に応じて更新
+  useEffect(() => {
+    setSelectedTiles(Array(14 + kanCount).fill(null));
+  }, [kanCount]);
+
+console.log(selectedTiles.length);
 
   return (
     <div className='container'>
@@ -73,6 +81,14 @@ const App: React.FC = () => {
           <img key={index} src={src} alt={`Tiles ${index + 1}`} onClick={() => handleTilesClick(src)} className="tiles" />
         ))}
       </div>
+      {/*選択された麻雀牌を表示*/}
+      <SelectedTilesRow 
+        ponCount={ponCount} 
+        chiiCount={chiiCount} 
+        kanCount={kanCount} 
+        selectedOption1={selectedOption1} 
+        selectedTiles={selectedTiles} 
+      />
     </div>
   )
 }
