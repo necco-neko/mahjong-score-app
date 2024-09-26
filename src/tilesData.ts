@@ -26,13 +26,13 @@ const tilesData = [
   { src: '/sozu2_1/p_ss7_1.gif', label: 's7' },
   { src: '/sozu2_1/p_ss8_1.gif', label: 's8' },
   { src: '/sozu2_1/p_ss9_1.gif', label: 's9' },
-  { src: '/tupai2_1/p_ji_c_1.gif', label: 'chun' },
   { src: '/tupai2_1/p_ji_e_1.gif', label: 'east' },
-  { src: '/tupai2_1/p_ji_h_1.gif', label: 'hatsu' },
-  { src: '/tupai2_1/p_ji_n_1.gif', label: 'north' },
   { src: '/tupai2_1/p_ji_s_1.gif', label: 'south' },
   { src: '/tupai2_1/p_ji_w_1.gif', label: 'west' },
-  { src: '/tupai2_1/p_no_1.gif', label: 'haku' }
+  { src: '/tupai2_1/p_ji_n_1.gif', label: 'north' },
+  { src: '/tupai2_1/p_no_1.gif', label: 'haku' },
+  { src: '/tupai2_1/p_ji_h_1.gif', label: 'hatsu' },
+  { src: '/tupai2_1/p_ji_c_1.gif', label: 'chun' },
 ];
 
   export default tilesData;

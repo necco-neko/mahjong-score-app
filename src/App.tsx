@@ -60,6 +60,20 @@ const App: React.FC = () => {
     setSelectedTiles(Array(14).fill(null));
   };
 
+  //選択された牌のリスト(srcの配列)から牌のラベルのリストを取得する関数
+  const getLabelsFromSrc = (selectedTiles: (string | null)[]) => {
+    return selectedTiles.map((tileSrc) => {
+      const matchedTile = tilesData.find((tile) => tile.src === tileSrc);
+      return matchedTile ? matchedTile.label : null;
+    });
+  };
+
+  //計算ボタンの処理
+  const calculateScore = () => {
+    const selectedLabels = getLabelsFromSrc(selectedTiles)
+    console.log(selectedLabels);
+  };
+
   return (
     <div className='container'>
       {/*タイトル*/}
@@ -93,11 +107,12 @@ const App: React.FC = () => {
         selectedOption1={selectedOption1} 
         selectedTiles={selectedTiles} 
       />
-      {/*リセットボタン各種*/}
+      {/*ボタン各種*/}
       <div className='button-container'>
         <button onClick={backTiles}>一つ戻る</button>
         <button onClick={resetTiles}>牌リセット</button>
         <button onClick={resetAll}>全リセット</button>
+        <button onClick={calculateScore}>計算する</button>
       </div>
     </div>
   )
