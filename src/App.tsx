@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import tilesImages from './tilesImages';
-//import { OptionButton1, OptionButton2} from './components/OptionButton';
+import tilesData from './tilesData';
 import { SelectedTilesRow } from './components/SelectedTilesRow';
 import OptionButtonContainer from './components/OptionButtonContainer';
-
 
 const App: React.FC = () => {
   //選択オプション
@@ -19,12 +17,12 @@ const App: React.FC = () => {
   const [selectedTiles, setSelectedTiles] = useState<(string | null)[]>(Array(14).fill(null));
 
   //麻雀牌クリックによる牌ロットへの追加処理
-  const handleTilesClick = (tile: string) => {
+  const handleTilesClick = (src: string) => {
     //ロットに空欄があることを確認(あれば最初のインデックスを返し、なければ-1を返す)
-    const index = selectedTiles.findIndex(tile => tile === null);
+    const index = selectedTiles.findIndex(src => src === null);
     if (index !== -1) {
       const newTiles = [...selectedTiles];
-      newTiles[index] = tile;
+      newTiles[index] = src;
       setSelectedTiles(newTiles);
     }
   };
@@ -83,8 +81,8 @@ const App: React.FC = () => {
       />
       {/*麻雀牌の選択肢*/}
       <div className="tiles-row">
-        {tilesImages.map((src, index) => (
-          <img key={index} src={src} alt={`Tiles ${index + 1}`} onClick={() => handleTilesClick(src)} className="tiles" />
+        {tilesData.map((tile, index) => (
+          <img key={index} src={tile.src} alt={`Tiles ${index + 1}`} onClick={() => handleTilesClick(tile.src)} className="tiles" />
         ))}
       </div>
       {/*選択された麻雀牌を表示*/}
