@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import tilesImages from './tilesImages';
-import { OptionButton1, OptionButton2} from './components/OptionButton';
+//import { OptionButton1, OptionButton2} from './components/OptionButton';
 import { SelectedTilesRow } from './components/SelectedTilesRow';
+import OptionButtonContainer from './components/OptionButtonContainer';
 
 
 const App: React.FC = () => {
@@ -66,41 +67,20 @@ const App: React.FC = () => {
       {/*タイトル*/}
       <h1 className='title'>麻雀点数計算</h1>
       {/*オプションボタン*/}
-      <div className='option-container'>
-        <div className='naki-option-set1'>
-          鳴き：
-          <OptionButton1 label="あり" selected={selectedOption1} onClick={() => setSelectedOption1(true)} />
-          <OptionButton1 label="なし" selected={!selectedOption1} onClick={() => setSelectedOption1(false)} />
-        </div>
-        <OptionButton2
-          values={[0, 1, 2, 3, 4]}
-          selectedValue={ponCount}
-          onClick={setPonCount}
-          label='ポン'
-        />
-        <div className='naki-option-set1'>
-          リーチ：
-          <OptionButton1 label="あり" selected={selectedOption2} onClick={() => setSelectedOption2(true)} />
-          <OptionButton1 label="なし" selected={!selectedOption2} onClick={() => setSelectedOption2(false)} />
-        </div>
-        <OptionButton2
-          values={[0, 1, 2, 3, 4]}
-          selectedValue={chiiCount}
-          onClick={setChiiCount}
-          label='チー'
-        />
-        <div className='naki-option-set1'>
-          あがり方：
-          <OptionButton1 label="ロン" selected={selectedOption3} onClick={() => setSelectedOption3(true)} />
-          <OptionButton1 label="ツモ" selected={!selectedOption3} onClick={() => setSelectedOption3(false)} />
-        </div>
-        <OptionButton2
-          values={[0, 1, 2, 3, 4]}
-          selectedValue={kanCount}
-          onClick={setKanCount}
-          label='カン'
-        />
-      </div>
+      <OptionButtonContainer
+        selectedOption1={selectedOption1}
+        setSelectedOption1={setSelectedOption1}
+        selectedOption2={selectedOption2}
+        setSelectedOption2={setSelectedOption2}
+        selectedOption3={selectedOption3}
+        setSelectedOption3={setSelectedOption3}
+        ponCount={ponCount}
+        setPonCount={setPonCount}
+        chiiCount={chiiCount}
+        setChiiCount={setChiiCount}
+        kanCount={kanCount}
+        setKanCount={setKanCount}
+      />
       {/*麻雀牌の選択肢*/}
       <div className="tiles-row">
         {tilesImages.map((src, index) => (
