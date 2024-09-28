@@ -12,7 +12,7 @@ interface SelectedTilesRowProps {
 
 export const SelectedTilesRow: React.FC<SelectedTilesRowProps> = ({ ponCount, chiiCount, kanCount, selectedOption1, selectedTiles }) => {
     const nakiCount = ponCount + chiiCount + kanCount
-    if (!selectedOption1) {
+    if (!selectedOption1) {// 鳴き無しの場合(暗カンは存在し得る)
         const handNum = 13 - kanCount * 3
         return (
             <div>
@@ -39,11 +39,11 @@ export const SelectedTilesRow: React.FC<SelectedTilesRowProps> = ({ ponCount, ch
                 />
             </div>
         )
-    } else if (nakiCount > 4) {
+    } else if (nakiCount > 4) {// 鳴き回数が過剰な場合
         return (
             <div className="error-text">鳴き回数の合計が4回を超えています</div>
         )
-    } else {
+    } else {// 鳴きあり、かつ、回数も正常な場合
         const handNum = 13 - nakiCount * 3;
         return (
             <div>
