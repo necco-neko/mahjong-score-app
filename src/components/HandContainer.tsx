@@ -11,7 +11,7 @@ interface HandContainerProps {
 const HandContainer: React.FC<HandContainerProps> = ({ label, tiles, startIndex, endIndex }) => {
     return (
         <div className='hand-container'>
-            <div　className='hand-label'>{label}：</div>
+            <div className='hand-label'>{label}：</div>
             <div className='tiles-row'>
                 {tiles.slice(startIndex, endIndex + 1).map((tile, index) => (
                     <div className='selected-tiles' key={index}>

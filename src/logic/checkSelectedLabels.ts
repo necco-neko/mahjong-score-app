@@ -1,41 +1,82 @@
-const splitSelectedLabels = (selectedLabels: (string | null)[], ponCount: number, chiiCount: number, kanCount: number) => {
-    //手牌の数
-    const handLength = 13 - (ponCount + chiiCount + kanCount) * 3;
-
+const splitSelectedLabels = (selectedLabels: (string | null)[], selectedOption1: boolean, ponCount: number, chiiCount: number, kanCount: number) => {
     //分割処理
+    const handLength = 13 - (ponCount + chiiCount + kanCount) * 3;
     const handTiles = selectedLabels.slice(0, handLength);
-    const ponTiles = [];
-    const chiiTiles = [];
-    const kanTiles = [];
+    const ponTiles = [] as ((string | null)[])[];
+    const chiiTiles = [] as ((string | null)[])[];
+    const kanTiles = [] as ((string | null)[])[];
     let index = handLength;
 
-    //ポン
-    for (let i = 0; i < ponCount; i++) {
-        ponTiles.push(selectedLabels.slice(index, index + 3));
-        index += 3;
-    };
+    if (!selectedOption1) {//鳴きなしの場合はポン・チーの分割は行わない
+        const handLength = 13 - kanCount * 3;
+        const handTiles = selectedLabels.slice(0, handLength);
+        let index = handLength;
+        //カン
+        for (let i = 0; i < kanCount; i++) {
+            kanTiles.push(selectedLabels.slice(index, index + 4));
+            index += 4;
+        };
+        const agariTile = selectedLabels[selectedLabels.length - 1];
+        return { handTiles, ponTiles, chiiTiles, kanTiles, agariTile };
+    } else {//鳴きありの場合
+        //ポン
+        for (let i = 0; i < ponCount; i++) {
+            ponTiles.push(selectedLabels.slice(index, index + 3));
+            index += 3;
+        };
 
-    //チー
-    for (let i = 0; i < chiiCount; i++) {
-        chiiTiles.push(selectedLabels.slice(index, index + 3));
-        index += 3;
-    };
+        //チー
+        for (let i = 0; i < chiiCount; i++) {
+            chiiTiles.push(selectedLabels.slice(index, index + 3));
+            index += 3;
+        };
 
-    //カン
-    for (let i = 0; i < kanCount; i++) {
-        kanTiles.push(selectedLabels.slice(index, index + 4));
-        index += 4;
-    };
+        //カン
+        for (let i = 0; i < kanCount; i++) {
+            kanTiles.push(selectedLabels.slice(index, index + 4));
+            index += 4;
+        };
 
-    const agariTile = selectedLabels[selectedLabels.length - 1];
+        const agariTile = selectedLabels[selectedLabels.length - 1];
 
-    return { handTiles, ponTiles, chiiTiles, kanTiles, agariTile };
+        return { handTiles, ponTiles, chiiTiles, kanTiles, agariTile };
+    }
 };
 
 //通常の面子＋雀頭の形になっていることを確認する関数
 const checkStandardHand = (tileCount: { [key: string]: number }) => {
+    //牌を種類ごとに分割する関数
+    const splitTilesByType = (tileCount: { [key: string]: number }) => {
+        const suits = {
+            m: [] as string[],
+            p: [] as string[],
+            s: [] as string[],
+            j: [] as string[],
+        };
+
+        Object.entries(tileCount).forEach(([tile, count]) => {
+            switch(tile[0]) {
+                case 'm':
+                    suits.m.push(...Array(count).fill(tile));
+                    break;
+                case 'p':
+                    suits.p.push(...Array(count).fill(tile));
+                    break;
+                case 's':
+                    suits.s.push(...Array(count).fill(tile));
+                    break;
+                case 'j':
+                    suits.j.push(...Array(count).fill(tile));
+                    break;
+            }
+        });
+
+        return suits;
+    };
+
+
     //面子を作るための再帰的な処理
-    const canFormHand = (remainingTiles: string[], hasPair: boolean ): boolean => {
+    const canFormHand = (remainingTiles: string[], tileCount: { [key: string]: number }, hasPair: boolean ): boolean => {
         if (remainingTiles.length === 0) return true;
 
         const tile = remainingTiles[0];
@@ -46,7 +87,7 @@ const checkStandardHand = (tileCount: { [key: string]: number }) => {
             const newTileCount = { ...tileCount };
             newTileCount[tile] -= 2;
             const remainingAfterPair = remainingTiles.filter(t => newTileCount[t] > 0);
-            if (canFormHand(remainingAfterPair, true)) return true;
+            if (canFormHand(remainingAfterPair, newTileCount, true)) return true;
         }
 
         //刻子を作る
@@ -54,7 +95,7 @@ const checkStandardHand = (tileCount: { [key: string]: number }) => {
             const newTileCount = { ...tileCount };
             newTileCount[tile]-= 3;
             const remainingAfterPair = remainingTiles.filter(t => newTileCount[t] > 0);
-            if (canFormHand(remainingAfterPair, hasPair)) return true;
+            if (canFormHand(remainingAfterPair, newTileCount, hasPair)) return true;
         }
 
         //順子を作る
@@ -67,16 +108,27 @@ const checkStandardHand = (tileCount: { [key: string]: number }) => {
                 newTileCount[next1]--;
                 newTileCount[next2]--;
                 const remainingAfterPair = remainingTiles.filter(t => newTileCount[t] > 0);
-                if (canFormHand(remainingAfterPair, hasPair)) return true;
+                if (canFormHand(remainingAfterPair, newTileCount, hasPair)) return true;
             }
         }
 
         return false;
     };
 
+    // 牌を種類ごとにソートして分割
+    const { m, p, s, j } = splitTilesByType(tileCount);
+
+    // すべての種類の牌をまとめる
+    const allSuitTiles = [...m, ...p, ...s, ...j];
+    console.log(allSuitTiles);
+
+    return canFormHand(allSuitTiles, tileCount, false);
+
+    /*
     //残り牌を配列にしてチェック
     const remainingTiles = Object.entries(tileCount).flatMap(([tile, count]) => Array(count).fill(tile));
     return canFormHand(remainingTiles, false);
+    */
 };
 
 //特殊形(七対子・国士無双)を確認する関数
@@ -112,7 +164,7 @@ const checkSpecialHand = (tileCount: { [key: string]: number }): boolean => {
 };
 
 
-const checkSelecetedTiles = (selectedLabels: (string | null)[], ponCount: number, chiiCount: number, kanCount: number) => {
+const checkSelecetedTiles = (selectedLabels: (string | null)[], selectedOption1: boolean, ponCount: number, chiiCount: number, kanCount: number) => {
     //nullチェック
     if (selectedLabels.includes(null)) {
         console.log("入力されていない牌があります")
@@ -120,7 +172,7 @@ const checkSelecetedTiles = (selectedLabels: (string | null)[], ponCount: number
     }
 
     //手牌・ポン・チー・カン・あがり牌に分割
-    const { handTiles, ponTiles, chiiTiles, kanTiles, agariTile } = splitSelectedLabels(selectedLabels, ponCount, chiiCount, kanCount);
+    const { handTiles, ponTiles, chiiTiles, kanTiles, agariTile } = splitSelectedLabels(selectedLabels, selectedOption1, ponCount, chiiCount, kanCount);
 
     //重複チェック
     const allTiles = [...selectedLabels];
@@ -146,12 +198,15 @@ const checkSelecetedTiles = (selectedLabels: (string | null)[], ponCount: number
 
     //チーの正当性を確認
     for (const chii of chiiTiles) {
+        //ソートして連番かどうかを確認
+        const sortedChii = chii.slice().sort((a, b) => parseInt(a![1]) - parseInt(b![1]));
+
         const isValidChii =
-            (chii[0]![0] === chii[1]![0] && chii[1]![0] === chii[2]![0]) && // 同じ種類
-            (parseInt(chii[0]![1]) + 1 === parseInt(chii[1]![1]) && parseInt(chii[1]![1]) + 1 === parseInt(chii[2]![1])); // 連番
+            (sortedChii[0]![0] === sortedChii[1]![0] && sortedChii[1]![0] === sortedChii[2]![0]) && // 同じ種類
+            (parseInt(sortedChii[0]![1]) + 1 === parseInt(sortedChii[1]![1]) && parseInt(sortedChii[1]![1]) + 1 === parseInt(sortedChii[2]![1])); // 連番
 
         if (!isValidChii) {
-            console.log("チーは同じ種類かつ連番である必要があります")
+            console.log("チーは同じ種類かつ連番である必要があります");
             return false;
         }
     };

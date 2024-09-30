@@ -72,7 +72,7 @@ const App: React.FC = () => {
   //計算ボタンの処理
   const calculateScore = () => {
     const selectedLabels = getLabelsFromSrc(selectedTiles);
-    const isValid = checkSelecetedTiles(selectedLabels, ponCount, chiiCount, kanCount);
+    const isValid = checkSelecetedTiles(selectedLabels, selectedOption1, ponCount, chiiCount, kanCount);
     console.log(isValid);
   };
 
