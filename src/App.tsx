@@ -6,6 +6,7 @@ import OptionButtonContainer from './components/OptionButtonContainer';
 import checkSelectedTiles from './logic/checkSelectedTiles';
 import tileCount from './utils/tileCount';
 import checkHandValues from './logic/checkHandValues';
+import countYakuman from './logic/countYakuman';
 
 const App: React.FC = () => {
   //選択オプション
@@ -75,13 +76,22 @@ const App: React.FC = () => {
   const calculateScore = () => {
     const selectedLabels = getLabelsFromSrc(selectedTiles);
     const isValid = checkSelectedTiles(selectedLabels, selectedOption1, ponCount, chiiCount, kanCount);
-    console.log(isValid);
-    if (isValid) {
-      const tileCountOfAll = tileCount(selectedLabels as string[]);// checkSelectedTilesによりnullを含まないことを保証
-      const agariTile = selectedLabels[selectedLabels.length - 1] as string;
-      const yakuList = checkHandValues(tileCountOfAll, agariTile, kanCount, selectedOption1, selectedOption3);
-      console.log(yakuList);
+    if (!isValid) { //不正な手牌の場合は計算せず終了
+      console.log("あがれません");
+      return;
+    };
+    //役満があるか確認
+    const tileCountOfAll = tileCount(selectedLabels as string[]);// checkSelectedTilesによりnullを含まないことを保証
+    const agariTile = selectedLabels[selectedLabels.length - 1] as string;
+    const yakuList = checkHandValues(tileCountOfAll, agariTile, kanCount, selectedOption1, selectedOption3);
+    console.log(yakuList);
+    //役満がある場合は結果を出力して終了
+    if (yakuList.length > 0) {
+      countYakuman(yakuList);//最終的にscoreCalculationに置き換える可能性あり
+      return;
     }
+    //通常役を確認
+    console.log("通常役を確認します");
   };
 
   return (

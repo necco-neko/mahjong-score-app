@@ -92,7 +92,7 @@ const checkHandValues = (tileCount: { [key: string ]: number }, agariTile: strin
 
 
 
-
+    
     return yakuList;
 };
 
