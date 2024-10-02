@@ -21,8 +21,7 @@ export const isJunseiChuurenPoutou = (tileCount: { [key: string]: number }, agar
     //除外後の手牌の枚数を確認
     const countM1 = adjustedTileCount['m1'] || 0;
     const countM9 = adjustedTileCount['m9'] || 0;
-    const countM2toM8 = ['m2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8'].every(tile => (tileCount[tile] || 0) === 1);
-
+    const countM2toM8 = ['m2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8'].every(tile => (adjustedTileCount[tile] || 0) === 1);
     const isPure = countM1 === 3 && countM9 === 3 && countM2toM8;
 
     return isPure;
