@@ -7,7 +7,7 @@ import isTsuiso from "./valueCheckFunctions/isTsuiso";
 import isDaisangen from "./valueCheckFunctions/isDaisangen";
 import { isDaisushi, isShosushi } from "./valueCheckFunctions/isSushiho";
 
-const checkHandValues = (tileCount: { [key: string ]: number }, agariTile: string, kanCount: number, selectedOption1: boolean): string[] => {
+const checkHandValues = (tileCount: { [key: string ]: number }, agariTile: string, kanCount: number, selectedOption1: boolean, selectedOption3: boolean): string[] => {
     //成立した役のリスト
     const yakuList: string[] = [];
 
@@ -41,7 +41,7 @@ const checkHandValues = (tileCount: { [key: string ]: number }, agariTile: strin
     }
 
     //四暗刻
-    if (is4Anko(tileCount, selectedOption1)) {
+    if (is4Anko(tileCount, agariTile, selectedOption1, selectedOption3)) {
         //四暗刻単騎の確認
         if (is4AnkoTanki(tileCount, agariTile)) {
             yakuList.push("四暗刻単騎");

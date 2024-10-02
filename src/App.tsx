@@ -79,7 +79,7 @@ const App: React.FC = () => {
     if (isValid) {
       const tileCountOfAll = tileCount(selectedLabels as string[]);// checkSelectedTilesによりnullを含まないことを保証
       const agariTile = selectedLabels[selectedLabels.length - 1] as string;
-      const yakuList = checkHandValues(tileCountOfAll, agariTile, kanCount, selectedOption1);
+      const yakuList = checkHandValues(tileCountOfAll, agariTile, kanCount, selectedOption1, selectedOption3);
       console.log(yakuList);
     }
   };
