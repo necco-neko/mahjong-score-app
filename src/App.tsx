@@ -4,6 +4,7 @@ import tilesData from './data/tilesData';
 import { SelectedTilesRow } from './components/SelectedTilesRow';
 import OptionButtonContainer from './components/OptionButtonContainer';
 import checkSelectedTiles from './logic/checkSelectedTiles';
+import tileCount from './utils/tileCount';
 import checkHandValues from './logic/checkHandValues';
 
 const App: React.FC = () => {
@@ -75,6 +76,12 @@ const App: React.FC = () => {
     const selectedLabels = getLabelsFromSrc(selectedTiles);
     const isValid = checkSelectedTiles(selectedLabels, selectedOption1, ponCount, chiiCount, kanCount);
     console.log(isValid);
+    if (isValid) {
+      const tileCountOfAll = tileCount(selectedLabels as string[]);// checkSelectedTilesによりnullを含まないことを保証
+      const agariTile = selectedLabels[selectedLabels.length - 1] as string;
+      const yakuList = checkHandValues(tileCountOfAll, agariTile, kanCount, selectedOption1);
+      console.log(yakuList);
+    }
   };
 
   return (
