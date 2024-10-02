@@ -13,6 +13,5 @@ export const isKokushiMusou = (tileCount: { [key: string]: number }) => {
 };
 
 export const isKokushiMusou13Wait = (tileCount: { [key: string]: number }, agariTile: string) => {
-    return tileCount[agariTile] === 1;
+    return tileCount[agariTile] === 2;
 };
-
