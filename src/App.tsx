@@ -3,7 +3,8 @@ import './App.css';
 import tilesData from './data/tilesData';
 import { SelectedTilesRow } from './components/SelectedTilesRow';
 import OptionButtonContainer from './components/OptionButtonContainer';
-import checkSelecetedTiles from './logic/checkSelectedLabels';
+import checkSelectedTiles from './logic/checkSelectedTiles';
+import checkHandValues from './logic/checkHandValues';
 
 const App: React.FC = () => {
   //選択オプション
@@ -72,7 +73,7 @@ const App: React.FC = () => {
   //計算ボタンの処理
   const calculateScore = () => {
     const selectedLabels = getLabelsFromSrc(selectedTiles);
-    const isValid = checkSelecetedTiles(selectedLabels, selectedOption1, ponCount, chiiCount, kanCount);
+    const isValid = checkSelectedTiles(selectedLabels, selectedOption1, ponCount, chiiCount, kanCount);
     console.log(isValid);
   };
 

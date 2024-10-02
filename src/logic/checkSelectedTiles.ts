@@ -1,11 +1,10 @@
+import tileCount from "../utils/tileCount";
+
 const splitSelectedLabels = (selectedLabels: (string | null)[], selectedOption1: boolean, ponCount: number, chiiCount: number, kanCount: number) => {
     //分割処理
-    const handLength = 13 - (ponCount + chiiCount + kanCount) * 3;
-    const handTiles = selectedLabels.slice(0, handLength);
     const ponTiles = [] as ((string | null)[])[];
     const chiiTiles = [] as ((string | null)[])[];
     const kanTiles = [] as ((string | null)[])[];
-    let index = handLength;
 
     if (!selectedOption1) {//鳴きなしの場合はポン・チーの分割は行わない
         const handLength = 13 - kanCount * 3;
@@ -19,6 +18,9 @@ const splitSelectedLabels = (selectedLabels: (string | null)[], selectedOption1:
         const agariTile = selectedLabels[selectedLabels.length - 1];
         return { handTiles, ponTiles, chiiTiles, kanTiles, agariTile };
     } else {//鳴きありの場合
+        const handLength = 13 - (ponCount + chiiCount + kanCount) * 3;
+        const handTiles = selectedLabels.slice(0, handLength);
+        let index = handLength;
         //ポン
         for (let i = 0; i < ponCount; i++) {
             ponTiles.push(selectedLabels.slice(index, index + 3));
@@ -45,93 +47,80 @@ const splitSelectedLabels = (selectedLabels: (string | null)[], selectedOption1:
 
 //通常の面子＋雀頭の形になっていることを確認する関数
 const checkStandardHand = (tileCount: { [key: string]: number }) => {
-    //牌を種類ごとに分割する関数
-    const splitTilesByType = (tileCount: { [key: string]: number }) => {
-        const suits = {
-            m: [] as string[],
-            p: [] as string[],
-            s: [] as string[],
-            j: [] as string[],
-        };
-
-        Object.entries(tileCount).forEach(([tile, count]) => {
-            switch(tile[0]) {
-                case 'm':
-                    suits.m.push(...Array(count).fill(tile));
-                    break;
-                case 'p':
-                    suits.p.push(...Array(count).fill(tile));
-                    break;
-                case 's':
-                    suits.s.push(...Array(count).fill(tile));
-                    break;
-                case 'j':
-                    suits.j.push(...Array(count).fill(tile));
-                    break;
-            }
-        });
-
-        return suits;
+    //雀頭候補を取得する関数
+    const getPairs = (tileCount: { [key: string]: number }): string[] => {
+        return Object.keys(tileCount).filter(key => tileCount[key] >= 2);
     };
+    //刻子候補を取得する関数
+    const getTriplets = (tileCount: { [key: string]: number }): string[] => {
+        return Object.keys(tileCount).filter(key => tileCount[key] >= 3);
+    };
+    //刻子候補の組み合わせを取得する関数
+    const getTripletsCombinations = (triplets: string[]):string[][] => {
+        const combinations: string[][] = [[]];
+        for (const triple of triplets) {
+            const currentLength = combinations.length;
 
-
-    //面子を作るための再帰的な処理
-    const canFormHand = (remainingTiles: string[], tileCount: { [key: string]: number }, hasPair: boolean ): boolean => {
-        if (remainingTiles.length === 0) return true;
-
-        const tile = remainingTiles[0];
-        const count = tileCount[tile];
-
-        //雀頭を作る
-        if (!hasPair && count >= 2) {
-            const newTileCount = { ...tileCount };
-            newTileCount[tile] -= 2;
-            const remainingAfterPair = remainingTiles.filter(t => newTileCount[t] > 0);
-            if (canFormHand(remainingAfterPair, newTileCount, true)) return true;
-        }
-
-        //刻子を作る
-        if (count >= 3) {
-            const newTileCount = { ...tileCount };
-            newTileCount[tile]-= 3;
-            const remainingAfterPair = remainingTiles.filter(t => newTileCount[t] > 0);
-            if (canFormHand(remainingAfterPair, newTileCount, hasPair)) return true;
-        }
-
-        //順子を作る
-        if (tile[0] === 'm' || tile[0] === 'p' || tile[0] === 's') {
-            const next1 = tile[0] + (parseInt(tile[1]) + 1);
-            const next2 = tile[0] + (parseInt(tile[1]) + 2);
-            if (tileCount[next1] > 0 && tileCount[next2] > 0) {
-                const newTileCount = { ...tileCount };
-                newTileCount[tile]--;
-                newTileCount[next1]--;
-                newTileCount[next2]--;
-                const remainingAfterPair = remainingTiles.filter(t => newTileCount[t] > 0);
-                if (canFormHand(remainingAfterPair, newTileCount, hasPair)) return true;
+            for (let i = 0; i < currentLength; i++) {
+                combinations.push([...combinations[i], triple]);
             }
         }
 
+        return combinations;
+    };
+    //順子を削除する関数
+    const removeSequences = (tileCount: { [key: string]: number }): boolean => {
+        const suits = ['m', 'p', 's'];
+        for (const suit of suits) {
+            for (let i = 0; i <= 7; i++) { //順子は１〜７で始まる
+                const tile1 = `${suit}${i}`;
+                const tile2 = `${suit}${i + 1}`;
+                const tile3 = `${suit}${i + 2}`;
+
+                while (tileCount[tile1] > 0 && tileCount[tile2] > 0 && tileCount[tile3] > 0) {
+                    tileCount[tile1]--;
+                    tileCount[tile2]--;
+                    tileCount[tile3]--;
+                }
+            }
+        }
+        //全ての牌の枚数が0ならtrue、残っていればfalse
+        return Object.values(tileCount).every(count => count === 0);
+    };
+    //刻子の組み合わせを試す関数
+    const checkTripletCombinations = (tileCount: { [key: string]: number }): boolean => {
+        //刻子の候補とその組み合わせを取得
+        const triplets = getTriplets(tileCount);
+        const tripletsCombinations = getTripletsCombinations(triplets);
+        //刻子の組み合わせを試す
+        for (const triplets of tripletsCombinations) {
+            const newTileCount = { ...tileCount };
+            for (const triplet of triplets) {
+                newTileCount[triplet] -= 3; //刻子を除外
+            }
+            //刻子を削除して残りの牌が0枚か確認する
+            if (removeSequences(newTileCount)) {
+                return true;
+            }
+        }
         return false;
-    };
+    }
 
-    // 牌を種類ごとにソートして分割
-    const { m, p, s, j } = splitTilesByType(tileCount);
+    //雀頭を選んでその後の処理を行う
+    const pairs = getPairs(tileCount);
+    for (const pair of pairs) {
+        const newTileCount = { ...tileCount };
+        newTileCount[pair] -= 2; //雀頭を除外する
 
-    // すべての種類の牌をまとめる
-    const allSuitTiles = [...m, ...p, ...s, ...j];
-    console.log(allSuitTiles);
+        //刻子の組み合わせを試す
+        if (checkTripletCombinations(newTileCount)) {
+            return true;
+        }
+    }
 
-    return canFormHand(allSuitTiles, tileCount, false);
-
-    /*
-    //残り牌を配列にしてチェック
-    const remainingTiles = Object.entries(tileCount).flatMap(([tile, count]) => Array(count).fill(tile));
-    return canFormHand(remainingTiles, false);
-    */
+    return false;
 };
 
-//特殊形(七対子・国士無双)を確認する関数
 const checkSpecialHand = (tileCount: { [key: string]: number }): boolean => {
     //七対子のチェック
     const isSevenPairs = Object.values(tileCount).filter(count => count === 2).length === 7;
@@ -164,7 +153,7 @@ const checkSpecialHand = (tileCount: { [key: string]: number }): boolean => {
 };
 
 
-const checkSelecetedTiles = (selectedLabels: (string | null)[], selectedOption1: boolean, ponCount: number, chiiCount: number, kanCount: number) => {
+const checkSelectedTiles = (selectedLabels: (string | null)[], selectedOption1: boolean, ponCount: number, chiiCount: number, kanCount: number) => {
     //nullチェック
     if (selectedLabels.includes(null)) {
         console.log("入力されていない牌があります")
@@ -222,12 +211,10 @@ const checkSelecetedTiles = (selectedLabels: (string | null)[], selectedOption1:
     //手牌とあがり牌をまとめる
     const handAndLastTiles = [...handTiles, agariTile].filter(Boolean) as string[];
 
+    
     //tileCountを作成
-    const tileCount = handAndLastTiles.reduce((countMap, tile) => {
-        countMap[tile] = (countMap[tile] || 0) + 1;
-        return countMap;
-    }, {} as { [key: string]: number });
-
+    const tileCountOfHandAndLast = tileCount(handAndLastTiles);
+    
     //枚数チェック：3n + 2
     if (handAndLastTiles.length % 3 !== 2) {
         console.log("枚数バグ");
@@ -235,13 +222,13 @@ const checkSelecetedTiles = (selectedLabels: (string | null)[], selectedOption1:
     }
 
     //通常形の確認
-    if (checkStandardHand(tileCount)) {
+    if (checkStandardHand(tileCountOfHandAndLast)) {
         console.log("正当な手牌(通常形)")
         return true;
     }
 
     //特殊形の確認
-    if (handAndLastTiles.length === 14 && checkSpecialHand(tileCount)) {
+    if (handAndLastTiles.length === 14 && checkSpecialHand(tileCountOfHandAndLast)) {
         console.log("正当な手牌(七対子or国士無双)")
         return true;
     }
@@ -250,4 +237,4 @@ const checkSelecetedTiles = (selectedLabels: (string | null)[], selectedOption1:
     return false;
 };
 
-export default checkSelecetedTiles;
+export default checkSelectedTiles;
