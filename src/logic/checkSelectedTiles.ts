@@ -69,7 +69,7 @@ const checkStandardHand = (tileCount: { [key: string]: number }) => {
         return combinations;
     };
     //順子を削除する関数
-    const removeSequences = (tileCount: { [key: string]: number }): boolean => {
+    const removeSequences = (tileCount: { [key: string]: number }, sequences: string[][]): boolean => {
         const suits = ['m', 'p', 's'];
         for (const suit of suits) {
             for (let i = 0; i <= 7; i++) { //順子は１〜７で始まる
@@ -81,6 +81,7 @@ const checkStandardHand = (tileCount: { [key: string]: number }) => {
                     tileCount[tile1]--;
                     tileCount[tile2]--;
                     tileCount[tile3]--;
+                    sequences.push([tile1, tile2, tile3]);
                 }
             }
         }
@@ -88,37 +89,50 @@ const checkStandardHand = (tileCount: { [key: string]: number }) => {
         return Object.values(tileCount).every(count => count === 0);
     };
     //刻子の組み合わせを試す関数
-    const checkTripletCombinations = (tileCount: { [key: string]: number }): boolean => {
+    const checkTripletCombinations = (tileCount: { [key: string]: number }): string[][][] | null => {
         //刻子の候補とその組み合わせを取得
         const triplets = getTriplets(tileCount);
         const tripletsCombinations = getTripletsCombinations(triplets);
+
+        const validCombinations: string[][][] = [];
+
         //刻子の組み合わせを試す
         for (const triplets of tripletsCombinations) {
             const newTileCount = { ...tileCount };
+            const tripletList: string[][] = [];
+
             for (const triplet of triplets) {
                 newTileCount[triplet] -= 3; //刻子を除外
+                tripletList.push([triplet, triplet, triplet]);
             }
+
+            const sequenceList: string[][] = [];
             //刻子を削除して残りの牌が0枚か確認する
-            if (removeSequences(newTileCount)) {
-                return true;
+            if (removeSequences(newTileCount, sequenceList)) {
+                validCombinations.push([...tripletList, ...sequenceList]);
             }
         }
-        return false;
+        return validCombinations.length > 0 ? validCombinations : null;
     }
 
     //雀頭を選んでその後の処理を行う
     const pairs = getPairs(tileCount);
+    const validHands: string[][][] = [];
+
     for (const pair of pairs) {
         const newTileCount = { ...tileCount };
         newTileCount[pair] -= 2; //雀頭を除外する
 
         //刻子の組み合わせを試す
-        if (checkTripletCombinations(newTileCount)) {
-            return true;
+        const tripletResults = checkTripletCombinations(newTileCount);
+        if (tripletResults) {
+            for (const result of tripletResults) {
+                validHands.push([[pair, pair], ...result]); //雀頭と刻子・順子のリストを追加
+            }
         }
     }
 
-    return false;
+    return validHands.length > 0 ? validHands : false;
 };
 
 const checkSpecialHand = (tileCount: { [key: string]: number }): boolean => {

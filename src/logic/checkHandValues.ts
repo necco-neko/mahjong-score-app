@@ -88,6 +88,9 @@ const checkHandValues = (tileCount: { [key: string ]: number }, agariTile: strin
     //役満が一つでも含まれていたら通常役を確認する必要がない
     if (yakuList.length > 1) return yakuList;
 
+    //通常役の確認
+    //メモ：通常役の確認にはcheckStandardHandでの面子分割が必須と思われる。
+
 
 
 
