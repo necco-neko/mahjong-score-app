@@ -236,9 +236,10 @@ const checkSelectedTiles = (selectedLabels: (string | null)[], selectedOption1: 
     }
 
     //通常形の確認
-    if (checkStandardHand(tileCountOfHandAndLast)) {
-        console.log("正当な手牌(通常形)")
-        return true;
+    const standardHandResult = checkStandardHand(tileCountOfHandAndLast);
+    if (standardHandResult) {
+        console.log("正当な手牌(通常形)");
+        return standardHandResult;
     }
 
     //特殊形の確認

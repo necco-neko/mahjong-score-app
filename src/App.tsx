@@ -75,15 +75,19 @@ const App: React.FC = () => {
   //計算ボタンの処理
   const calculateScore = () => {
     const selectedLabels = getLabelsFromSrc(selectedTiles);
-    const isValid = checkSelectedTiles(selectedLabels, selectedOption1, ponCount, chiiCount, kanCount);
-    if (!isValid) { //不正な手牌の場合は計算せず終了
+    const handStructures = checkSelectedTiles(selectedLabels, selectedOption1, ponCount, chiiCount, kanCount);
+    //不正な手牌の場合は計算せず終了
+    if (handStructures === false) {
       console.log("あがれません");
       return;
     };
+
+    console.log(handStructures);
+
     //役満があるか確認
     const tileCountOfAll = tileCount(selectedLabels as string[]);// checkSelectedTilesによりnullを含まないことを保証
     const agariTile = selectedLabels[selectedLabels.length - 1] as string;
-    const yakuList = checkHandValues(tileCountOfAll, agariTile, kanCount, selectedOption1, selectedOption3);
+    const yakuList = checkHandValues(tileCountOfAll, handStructures, agariTile, kanCount, selectedOption1, selectedOption3);
     console.log(yakuList);
     //役満がある場合は結果を出力して終了
     if (yakuList.length > 0) {
