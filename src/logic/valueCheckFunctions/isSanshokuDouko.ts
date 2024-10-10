@@ -4,12 +4,17 @@ const isSanshokuDouko = (structure: string[][]): boolean => {
         'p': [],
         's': [],
     };
+    //字牌のリスト
+    const jihaiList = ["east", "south", "west", "north", "haku", "hatsu", "chun"];
 
     structure.forEach(group => {
-        //groupが3枚かつ1枚目と2枚目が同じであれば刻子(structureの正当性に基づく)
-        if (group.length === 3 && group[0] === group[1]) {
+        console.log(group);
+        //groupが刻子であることと数牌であることを確認
+        if (group.length === 3 && group[0] === group[1] && !jihaiList.includes(group[0])) {
             const suit = group[0][0];
+            console.log("suit:" + suit);
             const number = parseInt(group[0][1]);
+            console.log("number:" + number);
 
             //萬子・筒子・索子ごとに刻子の数字を配列に追加
             triplets[suit].push(number);
