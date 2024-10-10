@@ -1,4 +1,4 @@
-const isSanshokuDouko = (structure: string[][]): boolean => {
+const isSanshokuDouko = (structure: string[][], ponTiles: string[][]): boolean => {
     const triplets: { [key: string]: number[] } = {
         'm': [],
         'p': [],
@@ -17,6 +17,14 @@ const isSanshokuDouko = (structure: string[][]): boolean => {
             //萬子・筒子・索子ごとに刻子の数字を配列に追加
             triplets[suit].push(number);
         }
+    });
+
+    //ポンした牌についても刻子としてカウント
+    ponTiles.forEach(pon => {
+        const suit = pon[0][0];
+        const number = parseInt(pon[0][1]);
+
+        triplets[suit].push(number);
     });
 
     //萬子・筒子・索子の全てに含まれる数字があれば成立

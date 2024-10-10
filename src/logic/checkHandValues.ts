@@ -189,7 +189,7 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
         }
 
         //三色同刻
-        if (isSanshokuDouko(structure)) {
+        if (isSanshokuDouko(structure, handStructures.ponTiles)) {
             tempYakuList.push("三色同刻");
         }
 
