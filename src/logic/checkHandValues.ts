@@ -206,7 +206,7 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
 
         //対々和
         if (isToitoi(structure)) {
-            yakuList.push("対々和");
+            tempYakuList.push("対々和");
         }
 
         //三暗刻：暗カンの判定が未実装のため実装不可
