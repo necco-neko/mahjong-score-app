@@ -6,10 +6,9 @@ const checkChinitsuAndHonitsu = (tileCount: { [key: string]: number }): false | 
     let usedSuit: string[] = []; //使用されている種類(m,p,s)を保持するリスト
     Object.keys(tileCount).forEach(tile => {
         const suit = tile[0];
-
         if (jihaiList.includes(tile)) {
             hasJihai = true;
-        } else if (suits.includes(suit)) {
+        } else if (suits.includes(suit) && !usedSuit.includes(suit)) {
             usedSuit.push(suit);
         }
     });

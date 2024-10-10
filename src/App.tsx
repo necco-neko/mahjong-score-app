@@ -89,13 +89,13 @@ const App: React.FC = () => {
     const agariTile = selectedLabels[selectedLabels.length - 1] as string;
     const yakuList = checkHandValues(tileCountOfAll, handStructures, agariTile, kanCount, selectedOption1, selectedOption3);
     console.log(yakuList);
-    //役満がある場合は結果を出力して終了
     if (yakuList.length > 0) {
-      countYakuman(yakuList);//最終的にscoreCalculationに置き換える可能性あり
+      //役満の確認
+      countYakuman(yakuList);
+      //通常役を確認
+      console.log("通常役を確認します");
       return;
     }
-    //通常役を確認
-    console.log("通常役を確認します");
   };
 
   return (
