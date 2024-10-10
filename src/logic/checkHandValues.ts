@@ -16,6 +16,8 @@ import checkChanta from "./valueCheckFunctions/checkChanta";
 import checkChinitsuAndHonitsu from "./valueCheckFunctions/checkChinitsuAndHonitsu";
 import isToitoi from "./valueCheckFunctions/isToitoi";
 import isHonroutou from "./valueCheckFunctions/isHonroutou";
+import checkIipeikouAndRyanpeikou from "./valueCheckFunctions/checkIipeokouAndRyanpeikou";
+import isPinfu from "./valueCheckFunctions/isPinfu";
 
 const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: true | string[][][], agariTile: string, kanCount: number, selectedOption1: boolean, selectedOption3: boolean): string[] => {
     //成立した役のリスト
@@ -169,6 +171,17 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
     handStructures.forEach((structure) => {
         //一時的なリスト
         let tempYakuList: string[] = [];
+
+        //一盃口・二盃口
+        const resultOfPeikou = checkIipeikouAndRyanpeikou(structure, selectedOption1);
+        if (resultOfPeikou !== false) {
+            tempYakuList.push(resultOfPeikou);
+        }
+
+        //平和
+        if (isPinfu(structure, selectedOption1, agariTile)) {
+            tempYakuList.push("平和");
+        }
 
         //三色同順
         if (isSanshokuDoujun(structure)) {
