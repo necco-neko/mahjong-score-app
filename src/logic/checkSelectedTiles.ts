@@ -199,9 +199,15 @@ const checkSelectedTiles = (selectedLabels: (string | null)[], selectedOption1: 
         }
     };
 
-    //チーの正当性を確認
+    //チーの正当性を確認し、ソートされた組を返す
+    let sortedChiiTiles: false | string[][] = [];
+
     for (const chii of chiiTiles) {
-        //ソートして連番かどうかを確認
+        if (chii.includes(null)) {
+            console.log("チーにnullが含まれています");
+            return false;
+        }
+
         const sortedChii = chii.slice().sort((a, b) => parseInt(a![1]) - parseInt(b![1]));
 
         const isValidChii =
@@ -212,7 +218,9 @@ const checkSelectedTiles = (selectedLabels: (string | null)[], selectedOption1: 
             console.log("チーは同じ種類かつ連番である必要があります");
             return false;
         }
-    };
+
+        sortedChiiTiles.push(sortedChii as string[]); // ソートされた正しいチーを追加
+    }
 
     //カンの正当性を確認
     for (const kan of kanTiles) {
@@ -239,7 +247,7 @@ const checkSelectedTiles = (selectedLabels: (string | null)[], selectedOption1: 
     const standardHandResult = checkStandardHand(tileCountOfHandAndLast);
     if (standardHandResult) {
         console.log("正当な手牌(通常形)");
-        return standardHandResult;
+        return { hand: standardHandResult, chiiTiles: sortedChiiTiles };
     }
 
     //特殊形の確認

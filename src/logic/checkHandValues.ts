@@ -19,7 +19,7 @@ import isHonroutou from "./valueCheckFunctions/isHonroutou";
 import checkIipeikouAndRyanpeikou from "./valueCheckFunctions/checkIipeokouAndRyanpeikou";
 import isPinfu from "./valueCheckFunctions/isPinfu";
 
-const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: true | string[][][], agariTile: string, kanCount: number, selectedOption1: boolean, selectedOption3: boolean): string[] => {
+const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: true | { hand: string[][][], chiiTiles: string[][] }, agariTile: string, kanCount: number, selectedOption1: boolean, selectedOption3: boolean): string[] => {
     //成立した役のリスト
     let yakuList: string[] = [];
 
@@ -168,7 +168,7 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
     //handStructuresの各パターンに対して役を確認し、最大の役リストを返す
     let bestYakuList: string[] = [];
 
-    handStructures.forEach((structure) => {
+    handStructures.hand.forEach((structure) => {
         //一時的なリスト
         let tempYakuList: string[] = [];
 
