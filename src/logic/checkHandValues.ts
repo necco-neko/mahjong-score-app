@@ -194,7 +194,7 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
         }
 
         //一気通貫
-        if (isIkkiTsukan(structure)) {
+        if (isIkkiTsukan(structure, handStructures.chiiTiles)) {
             tempYakuList.push("一気通貫");
         }
 

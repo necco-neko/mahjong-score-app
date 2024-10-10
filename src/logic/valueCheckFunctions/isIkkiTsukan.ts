@@ -1,4 +1,4 @@
-const isIkkiTsukan = (structure: string[][]): boolean => {
+const isIkkiTsukan = (structure: string[][], chiiTiles: string[][]): boolean => {
     const sequences: { [key: string]: number[] } = {
         'm': [],
         'p': [],
@@ -14,6 +14,14 @@ const isIkkiTsukan = (structure: string[][]): boolean => {
             //萬子・筒子・索子ごとに順子の最初の数字を配列に追加
             sequences[suit].push(startNumber);
         }
+    });
+
+    //チーした牌についても順子としてカウント
+    chiiTiles.forEach(chii => {
+        const suit = chii[0][0];
+        const startNumber = parseInt(chii[0][1]);
+
+        sequences[suit].push(startNumber);
     });
 
     //同じ種類で1,4,7から始まる順子が全て存在すれば一気通貫成立
