@@ -20,7 +20,6 @@ const isPinfu = (structure: string[][], selectedOption1: boolean, agariTile: str
             pair = true
         }
     }
-    console.log("sequences:" + sequences);
     
     //雀頭が存在しないか順子が4なければ不成立
     if (!pair || sequences.length !== 4) {
@@ -32,7 +31,6 @@ const isPinfu = (structure: string[][], selectedOption1: boolean, agariTile: str
             const num1 = parseInt(sequence[0][1]);
             const num3 = parseInt(sequence[2][1]);
             const agariNum = parseInt(agariTile[1]);
-            console.log("nums:" + num1 + num3 + agariNum)
 
             //順子が[1,2,3]または[7,8,9]のいずれかの場合、あがり牌は1または9でなければならない。
             if (num1 === 1 || num3 === 9) {
