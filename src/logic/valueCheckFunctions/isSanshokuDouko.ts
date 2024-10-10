@@ -8,7 +8,6 @@ const isSanshokuDouko = (structure: string[][], ponTiles: string[][]): boolean =
     const jihaiList = ["east", "south", "west", "north", "haku", "hatsu", "chun"];
 
     structure.forEach(group => {
-        console.log(group);
         //groupが刻子であることと数牌であることを確認
         if (group.length === 3 && group[0] === group[1] && !jihaiList.includes(group[0])) {
             const suit = group[0][0];
@@ -21,10 +20,12 @@ const isSanshokuDouko = (structure: string[][], ponTiles: string[][]): boolean =
 
     //ポンした牌についても刻子としてカウント
     ponTiles.forEach(pon => {
-        const suit = pon[0][0];
-        const number = parseInt(pon[0][1]);
+        if (!jihaiList.includes(pon[0])) {
+            const suit = pon[0][0];
+            const number = parseInt(pon[0][1]);
 
-        triplets[suit].push(number);
+            triplets[suit].push(number);
+        }
     });
 
     //萬子・筒子・索子の全てに含まれる数字があれば成立
