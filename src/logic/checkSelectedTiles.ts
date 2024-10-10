@@ -247,7 +247,7 @@ const checkSelectedTiles = (selectedLabels: (string | null)[], selectedOption1: 
     const standardHandResult = checkStandardHand(tileCountOfHandAndLast);
     if (standardHandResult) {
         console.log("正当な手牌(通常形)");
-        return { hand: standardHandResult, chiiTiles: sortedChiiTiles };
+        return { hand: standardHandResult, chiiTiles: sortedChiiTiles, ponTiles: ponTiles as string[][] };
     }
 
     //特殊形の確認

@@ -19,7 +19,7 @@ import isHonroutou from "./valueCheckFunctions/isHonroutou";
 import checkIipeikouAndRyanpeikou from "./valueCheckFunctions/checkIipeokouAndRyanpeikou";
 import isPinfu from "./valueCheckFunctions/isPinfu";
 
-const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: true | { hand: string[][][], chiiTiles: string[][] }, agariTile: string, kanCount: number, selectedOption1: boolean, selectedOption3: boolean): string[] => {
+const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: true | { hand: string[][][], chiiTiles: string[][], ponTiles: string[][] }, agariTile: string, kanCount: number, selectedOption1: boolean, selectedOption3: boolean): string[] => {
     //成立した役のリスト
     let yakuList: string[] = [];
 
