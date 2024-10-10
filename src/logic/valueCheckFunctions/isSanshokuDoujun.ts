@@ -1,4 +1,4 @@
-const isSanshokuDoujun = (structure: string[][]): boolean => {
+const isSanshokuDoujun = (structure: string[][], chiiTiles: string[][]): boolean => {
     const sequences: { [key: string]: number[] } = {
         'm': [],
         'p': [],
@@ -14,6 +14,14 @@ const isSanshokuDoujun = (structure: string[][]): boolean => {
             //萬子・筒子・索子ごとに順子の最初の数字を配列に追加
             sequences[suit].push(startNumber);
         }
+    });
+
+    //チーした牌についても順子としてカウント
+    chiiTiles.forEach(chii => {
+        const suit = chii[0][0];
+        const startNumber = parseInt(chii[0][1]);
+
+        sequences[suit].push(startNumber);
     });
 
     //萬子・筒子・索子の全てに含まれる数字があれば成立
