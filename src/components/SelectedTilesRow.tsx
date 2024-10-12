@@ -14,6 +14,27 @@ interface SelectedTilesRowProps {
 
 export const SelectedTilesRow: React.FC<SelectedTilesRowProps> = ({ ponCount, chiiCount, kanCount, selectedOption1, selectedTiles, typeOfKan, setTypeOfKan }) => {
     const nakiCount = ponCount + chiiCount + kanCount
+    const backTileSrc = '/tupai2_1/p_bk_1.gif';
+
+    const getDisplayedTiles = (kanType: boolean) => {
+        //明カンならそのまま
+        if (kanType) {
+            return selectedTiles;
+        }
+        //暗カンの場合
+        const displayedTiles = [...selectedTiles];
+        let currentIndex = 13 - kanCount * 3;
+        //カンの牌を入力完了後、両端を裏面にする
+        for (let i = 0; i < kanCount; i++) {
+            if (displayedTiles[currentIndex + 3] !== null) {
+                displayedTiles[currentIndex] = backTileSrc;
+                displayedTiles[currentIndex + 3] = backTileSrc;
+            }
+            currentIndex += 4;
+        }
+        return displayedTiles;
+    };
+
     if (!selectedOption1) {// 鳴き無しの場合(暗カンは存在し得る)
         const handNum = 13 - kanCount * 3
         return (
@@ -28,7 +49,7 @@ export const SelectedTilesRow: React.FC<SelectedTilesRowProps> = ({ ponCount, ch
                     <HandContainer
                         key={`kan-${index + 1}`}
                         label={`カン${index + 1}`}
-                        tiles={selectedTiles}
+                        tiles={getDisplayedTiles(typeOfKan[index])}
                         startIndex={handNum + index * 4}
                         endIndex={handNum + index * 4 + 3}
                     />
@@ -78,7 +99,7 @@ export const SelectedTilesRow: React.FC<SelectedTilesRowProps> = ({ ponCount, ch
                         <HandContainer
                             key={`kan-${index + 1}`}
                             label={`カン${index + 1}`}
-                            tiles={selectedTiles}
+                            tiles={getDisplayedTiles(typeOfKan[index])}
                             startIndex={handNum + ponCount * 3 + chiiCount * 3 + index * 4}
                             endIndex={handNum + ponCount * 3 + chiiCount * 3 + index * 4 + 3}
                         />

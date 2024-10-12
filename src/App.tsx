@@ -30,6 +30,13 @@ const App: React.FC = () => {
     setTypeOfKan(newTypeOfKan);
   };
 
+  // selectedOption1がfalseに変更された(鳴きなしのとき)、typeOfKanを全てfalseにする
+  useEffect(() => {
+    if (!selectedOption1) {
+      setTypeOfKan(Array(kanCount).fill(false));
+    }
+  }, [selectedOption1, kanCount]);
+
   //麻雀牌クリックによる牌ロットへの追加処理
   const handleTilesClick = (src: string) => {
     //ロットに空欄があることを確認(あれば最初のインデックスを返し、なければ-1を返す)
