@@ -1,4 +1,4 @@
-const isSanshokuDouko = (structure: string[][], ponTiles: string[][]): boolean => {
+const isSanshokuDouko = (structure: string[][], ponTiles: string[][], kanTiles: string[][]): boolean => {
     const triplets: { [key: string]: number[] } = {
         'm': [],
         'p': [],
@@ -23,6 +23,16 @@ const isSanshokuDouko = (structure: string[][], ponTiles: string[][]): boolean =
         if (!jihaiList.includes(pon[0])) {
             const suit = pon[0][0];
             const number = parseInt(pon[0][1]);
+
+            triplets[suit].push(number);
+        }
+    });
+
+    //カンした牌についても刻子としてカウント
+    kanTiles.forEach(kan => {
+        if (!jihaiList.includes(kan[0])) {
+            const suit = kan[0][0];
+            const number = parseInt(kan[0][1]);
 
             triplets[suit].push(number);
         }
