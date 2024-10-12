@@ -20,6 +20,16 @@ const App: React.FC = () => {
   //選択された牌の記録
   const [selectedTiles, setSelectedTiles] = useState<(string | null)[]>(Array(14).fill(null));
 
+  //カンの種類(true: 明カン, false: 暗カン)
+  const [typeOfKan, setTypeOfKan] = useState<boolean[]>(Array(kanCount).fill(false));
+
+  // カンの種類を更新する関数
+  const handleSetTypeOfKan = (index: number, value: boolean) => {
+    const newTypeOfKan = [...typeOfKan];
+    newTypeOfKan[index] = value;
+    setTypeOfKan(newTypeOfKan);
+  };
+
   //麻雀牌クリックによる牌ロットへの追加処理
   const handleTilesClick = (src: string) => {
     //ロットに空欄があることを確認(あれば最初のインデックスを返し、なければ-1を返す)
@@ -34,6 +44,7 @@ const App: React.FC = () => {
   //選択されたカンの回数に応じて更新
   useEffect(() => {
     setSelectedTiles(Array(14 + kanCount).fill(null));
+    setTypeOfKan(Array(kanCount).fill(false));
   }, [kanCount]);
 
   //一つ戻るボタンの処理
@@ -62,6 +73,7 @@ const App: React.FC = () => {
     setChiiCount(0);
     setKanCount(0);
     setSelectedTiles(Array(14).fill(null));
+    setTypeOfKan(Array(0).fill(false));
   };
 
   //選択された牌のリスト(srcの配列)から牌のラベルのリストを取得する関数
@@ -74,6 +86,7 @@ const App: React.FC = () => {
 
   //計算ボタンの処理
   const calculateScore = () => {
+    console.log(typeOfKan);
     const selectedLabels = getLabelsFromSrc(selectedTiles);
     const handStructures = checkSelectedTiles(selectedLabels, selectedOption1, ponCount, chiiCount, kanCount);
     //不正な手牌の場合は計算せず終了
@@ -129,7 +142,9 @@ const App: React.FC = () => {
         chiiCount={chiiCount} 
         kanCount={kanCount} 
         selectedOption1={selectedOption1} 
-        selectedTiles={selectedTiles} 
+        selectedTiles={selectedTiles}
+        typeOfKan={typeOfKan}
+        setTypeOfKan={handleSetTypeOfKan}
       />
       {/*ボタン各種*/}
       <div className='button-container'>

@@ -8,9 +8,11 @@ interface SelectedTilesRowProps {
     kanCount: number;
     selectedOption1: boolean;
     selectedTiles: (string | null)[];
+    typeOfKan: boolean[];
+    setTypeOfKan: (index: number, value: boolean) => void;
 }
 
-export const SelectedTilesRow: React.FC<SelectedTilesRowProps> = ({ ponCount, chiiCount, kanCount, selectedOption1, selectedTiles }) => {
+export const SelectedTilesRow: React.FC<SelectedTilesRowProps> = ({ ponCount, chiiCount, kanCount, selectedOption1, selectedTiles, typeOfKan, setTypeOfKan }) => {
     const nakiCount = ponCount + chiiCount + kanCount
     if (!selectedOption1) {// 鳴き無しの場合(暗カンは存在し得る)
         const handNum = 13 - kanCount * 3
@@ -72,13 +74,22 @@ export const SelectedTilesRow: React.FC<SelectedTilesRowProps> = ({ ponCount, ch
                     />
                 ))}
                 {[...Array(kanCount)].map((_, index) => (
-                    <HandContainer
-                        key={`kan-${index + 1}`}
-                        label={`カン${index + 1}`}
-                        tiles={selectedTiles}
-                        startIndex={handNum + ponCount * 3 + chiiCount * 3 + index * 4}
-                        endIndex={handNum + ponCount * 3 + chiiCount * 3 + index * 4 + 3}
-                    />
+                    <div key={`kan-${index + 1}`} className="kan-container">
+                        <HandContainer
+                            key={`kan-${index + 1}`}
+                            label={`カン${index + 1}`}
+                            tiles={selectedTiles}
+                            startIndex={handNum + ponCount * 3 + chiiCount * 3 + index * 4}
+                            endIndex={handNum + ponCount * 3 + chiiCount * 3 + index * 4 + 3}
+                        />
+                        <input
+                            type="checkbox"
+                            className='kan-checkbox'
+                            checked={typeOfKan[index]}
+                            onChange={(e) => setTypeOfKan(index, e.target.checked)}
+                        />
+                        <span className="kan-label">明カン</span>
+                    </div>
                 ))}
                 <HandContainer
                     label='あがり牌'
