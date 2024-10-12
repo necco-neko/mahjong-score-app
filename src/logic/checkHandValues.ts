@@ -98,7 +98,7 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
     }
 
     //役満が一つでも含まれていたら通常役を確認する必要がない
-    if (yakuList.length > 1) return yakuList;
+    if (yakuList.length > 0) return yakuList;
 
     //通常役の確認
 
