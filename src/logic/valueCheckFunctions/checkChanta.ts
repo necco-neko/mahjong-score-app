@@ -1,4 +1,4 @@
-const checkChanta = (structure: string[][], chiiTiles: string[][], ponTiles: string[][]): false | string => {
+const checkChanta = (structure: string[][], chiiTiles: string[][], ponTiles: string[][], kanTiles: string[][]): false | string => {
     const jihaiList = ["east", "south", "west", "north", "haku", "hatsu", "chun"];
     let hasJihai = false;
 
@@ -38,6 +38,12 @@ const checkChanta = (structure: string[][], chiiTiles: string[][], ponTiles: str
         }
     });
 
+    //カンに対してもチェックを行う
+    kanTiles.forEach(kan => {
+        if (!isChanta(kan)) {
+            chanta = false; //1,9,字牌を含まないグループがあれば全帯不成立
+        }
+    });
 
     //全帯が成立しない場合
     if (!chanta) {

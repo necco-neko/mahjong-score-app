@@ -199,7 +199,7 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
         }
 
         //全帯・純全帯
-        const resultOfChanta = checkChanta(structure, handStructures.chiiTiles, handStructures.ponTiles);
+        const resultOfChanta = checkChanta(structure, handStructures.chiiTiles, handStructures.ponTiles, handStructures.kanTiles);
         if (resultOfChanta !== false) {
             tempYakuList.push(resultOfChanta);
         }
