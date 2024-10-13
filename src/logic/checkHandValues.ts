@@ -201,7 +201,7 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
 
         //全帯・純全帯
         const resultOfChanta = checkChanta(structure, handStructures.chiiTiles, handStructures.ponTiles, handStructures.kanTiles);
-        if (resultOfChanta !== false) {
+        if (resultOfChanta !== false && !yakuList.includes("混老頭")) {
             tempYakuList.push(resultOfChanta);
         }
 
