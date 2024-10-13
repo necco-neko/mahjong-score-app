@@ -107,7 +107,7 @@ const App: React.FC = () => {
     //役満があるか確認
     const tileCountOfAll = tileCount(selectedLabels as string[]);// checkSelectedTilesによりnullを含まないことを保証
     const agariTile = selectedLabels[selectedLabels.length - 1] as string;
-    const yakuList = checkHandValues(tileCountOfAll, handStructures, agariTile, kanCount, selectedOption1, selectedOption3);
+    const yakuList = checkHandValues(tileCountOfAll, handStructures, agariTile, kanCount, typeOfKan, selectedOption1, selectedOption3);
     console.log(yakuList);
     if (yakuList.length > 0) {
       //役満の確認

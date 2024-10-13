@@ -18,8 +18,9 @@ import isToitoi from "./valueCheckFunctions/isToitoi";
 import isHonroutou from "./valueCheckFunctions/isHonroutou";
 import checkIipeikouAndRyanpeikou from "./valueCheckFunctions/checkIipeokouAndRyanpeikou";
 import isPinfu from "./valueCheckFunctions/isPinfu";
+import is3Anko from "./valueCheckFunctions/is3Anko";
 
-const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: true | { hand: string[][][], chiiTiles: string[][], ponTiles: string[][], kanTiles: string[][] }, agariTile: string, kanCount: number, selectedOption1: boolean, selectedOption3: boolean): string[] => {
+const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: true | { hand: string[][][], chiiTiles: string[][], ponTiles: string[][], kanTiles: string[][] }, agariTile: string, kanCount: number, typeOfKan: boolean[], selectedOption1: boolean, selectedOption3: boolean): string[] => {
     //成立した役のリスト
     let yakuList: string[] = [];
 
@@ -209,7 +210,10 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
             tempYakuList.push("対々和");
         }
 
-        //三暗刻：暗カンの判定が未実装のため実装不可
+        //三暗刻
+        if (is3Anko(structure, typeOfKan, agariTile, selectedOption3)) {
+            tempYakuList.push("三暗刻");
+        }
 
         //最も役の数が多い組をbestYakuListとする(最終的には翻数が多い組)
         if (tempYakuList.length > bestYakuList.length) {
