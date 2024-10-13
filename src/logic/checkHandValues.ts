@@ -206,7 +206,7 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
         }
 
         //対々和
-        if (isToitoi(structure)) {
+        if (isToitoi(structure, handStructures.chiiTiles)) {
             tempYakuList.push("対々和");
         }
 
