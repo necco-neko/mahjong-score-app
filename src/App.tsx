@@ -7,6 +7,7 @@ import checkSelectedTiles from './logic/checkSelectedTiles';
 import tileCount from './utils/tileCount';
 import checkHandValues from './logic/checkHandValues';
 import countYakuman from './logic/countYakuman';
+import calculateHan from './logic/calculateHan';
 
 const App: React.FC = () => {
   //選択オプション
@@ -114,6 +115,8 @@ const App: React.FC = () => {
       countYakuman(yakuList);
       //通常役を確認
       console.log("通常役を確認します");
+      const numOfHan = calculateHan(yakuList, selectedOption1);
+      console.log(numOfHan + "翻");
       return;
     }
   };
