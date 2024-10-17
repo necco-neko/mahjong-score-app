@@ -1,12 +1,12 @@
 import tileCount from "../utils/tileCount";
 
-const splitSelectedLabels = (selectedLabels: (string | null)[], selectedOption1: boolean, ponCount: number, chiiCount: number, kanCount: number) => {
+const splitSelectedLabels = (selectedLabels: (string | null)[], hasCalled: boolean, ponCount: number, chiiCount: number, kanCount: number) => {
     //分割処理
     const ponTiles = [] as ((string | null)[])[];
     const chiiTiles = [] as ((string | null)[])[];
     const kanTiles = [] as ((string | null)[])[];
 
-    if (!selectedOption1) {//鳴きなしの場合はポン・チーの分割は行わない
+    if (!hasCalled) {//鳴きなしの場合はポン・チーの分割は行わない
         const handLength = 13 - kanCount * 3;
         const handTiles = selectedLabels.slice(0, handLength);
         let index = handLength;
@@ -167,7 +167,7 @@ const checkSpecialHand = (tileCount: { [key: string]: number }): boolean => {
 };
 
 
-const checkSelectedTiles = (selectedLabels: (string | null)[], selectedOption1: boolean, ponCount: number, chiiCount: number, kanCount: number) => {
+const checkSelectedTiles = (selectedLabels: (string | null)[], hasCalled: boolean, ponCount: number, chiiCount: number, kanCount: number) => {
     //nullチェック
     if (selectedLabels.includes(null)) {
         console.log("入力されていない牌があります")
@@ -175,7 +175,7 @@ const checkSelectedTiles = (selectedLabels: (string | null)[], selectedOption1: 
     }
 
     //手牌・ポン・チー・カン・あがり牌に分割
-    const { handTiles, ponTiles, chiiTiles, kanTiles, agariTile } = splitSelectedLabels(selectedLabels, selectedOption1, ponCount, chiiCount, kanCount);
+    const { handTiles, ponTiles, chiiTiles, kanTiles, agariTile } = splitSelectedLabels(selectedLabels, hasCalled, ponCount, chiiCount, kanCount);
 
     //重複チェック
     const allTiles = [...selectedLabels];

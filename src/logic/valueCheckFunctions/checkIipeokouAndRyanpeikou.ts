@@ -1,6 +1,6 @@
-const checkIipeikouAndRyanpeikou  = (structure: string[][], selectedOption1: boolean): string | false => {
+const checkIipeikouAndRyanpeikou  = (structure: string[][], hasCalled: boolean): string | false => {
     //鳴きありの場合はいずれも不成立
-    if (selectedOption1) {
+    if (hasCalled) {
         return false;
     }
     

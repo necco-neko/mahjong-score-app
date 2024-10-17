@@ -6,13 +6,13 @@ interface SelectedTilesRowProps {
     ponCount: number;
     chiiCount: number;
     kanCount: number;
-    selectedOption1: boolean;
+    hasCalled: boolean;
     selectedTiles: (string | null)[];
     typeOfKan: boolean[];
     setTypeOfKan: (index: number, value: boolean) => void;
 }
 
-export const SelectedTilesRow: React.FC<SelectedTilesRowProps> = ({ ponCount, chiiCount, kanCount, selectedOption1, selectedTiles, typeOfKan, setTypeOfKan }) => {
+export const SelectedTilesRow: React.FC<SelectedTilesRowProps> = ({ ponCount, chiiCount, kanCount, hasCalled, selectedTiles, typeOfKan, setTypeOfKan }) => {
     const nakiCount = ponCount + chiiCount + kanCount
     const backTileSrc = '/tupai2_1/p_bk_1.gif';
 
@@ -35,7 +35,7 @@ export const SelectedTilesRow: React.FC<SelectedTilesRowProps> = ({ ponCount, ch
         return displayedTiles;
     };
 
-    if (!selectedOption1) {// 鳴き無しの場合(暗カンは存在し得る)
+    if (!hasCalled) {// 鳴き無しの場合(暗カンは存在し得る)
         const handNum = 13 - kanCount * 3
         return (
             <div>

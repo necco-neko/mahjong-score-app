@@ -1,6 +1,6 @@
-const isPinfu = (structure: string[][], selectedOption1: boolean, agariTile: string): boolean => {
+const isPinfu = (structure: string[][], hasCalled: boolean, agariTile: string): boolean => {
     //鳴きありの場合、不成立
-    if (selectedOption1) {
+    if (hasCalled) {
         return false;
     }
 

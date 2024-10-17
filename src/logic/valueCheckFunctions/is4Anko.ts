@@ -1,5 +1,5 @@
-export const is4Anko = (tileCount: { [key: string ]: number }, agariTile: string, selectedOption1: boolean, selectedOption3: boolean): boolean => {
-    if (selectedOption1) return false;
+export const is4Anko = (tileCount: { [key: string ]: number }, agariTile: string, hasCalled: boolean, isRon: boolean): boolean => {
+    if (hasCalled) return false;
 
     // あがり牌を除いた手牌を確認
     const adjustedTileCount = { ...tileCount };
@@ -21,7 +21,7 @@ export const is4Anko = (tileCount: { [key: string ]: number }, agariTile: string
     }
 
     //刻子が3・対子2の状態でロンあがりの時は不成立
-    if (tripletCount === 3 && pairCount === 2 && selectedOption3) {
+    if (tripletCount === 3 && pairCount === 2 && isRon) {
         return false;
     }
 

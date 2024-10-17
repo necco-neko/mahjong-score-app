@@ -3,12 +3,12 @@ import '../App.css';
 import { OptionButton1, OptionButton2} from './OptionButton';
 
 interface OptionButtonContainerProps {
-    selectedOption1: boolean;
-    setSelectedOption1: (value: boolean) => void;
-    selectedOption2: boolean;
-    setSelectedOption2: (value: boolean) => void;
-    selectedOption3: boolean;
-    setSelectedOption3: (value: boolean) => void;
+    hasCalled: boolean;
+    setHasCalled: (value: boolean) => void;
+    isRiichi: boolean;
+    setIsRiichi: (value: boolean) => void;
+    isRon: boolean;
+    setIsRon: (value: boolean) => void;
     ponCount: number;
     setPonCount: (value: number) => void;
     chiiCount: number;
@@ -18,12 +18,12 @@ interface OptionButtonContainerProps {
 }
 
 const OptionButtonContainer: React.FC<OptionButtonContainerProps> = ({
-    selectedOption1,
-    setSelectedOption1,
-    selectedOption2,
-    setSelectedOption2,
-    selectedOption3,
-    setSelectedOption3,
+    hasCalled,
+    setHasCalled,
+    isRiichi,
+    setIsRiichi,
+    isRon,
+    setIsRon,
     ponCount,
     setPonCount,
     chiiCount,
@@ -35,8 +35,8 @@ const OptionButtonContainer: React.FC<OptionButtonContainerProps> = ({
     <div className='option-container'>
         <div className='naki-option-set1'>
           鳴き：
-          <OptionButton1 label="あり" selected={selectedOption1} onClick={() => setSelectedOption1(true)} />
-          <OptionButton1 label="なし" selected={!selectedOption1} onClick={() => setSelectedOption1(false)} />
+          <OptionButton1 label="あり" selected={hasCalled} onClick={() => setHasCalled(true)} />
+          <OptionButton1 label="なし" selected={!hasCalled} onClick={() => setHasCalled(false)} />
         </div>
         <OptionButton2
           values={[0, 1, 2, 3, 4]}
@@ -46,8 +46,8 @@ const OptionButtonContainer: React.FC<OptionButtonContainerProps> = ({
         />
         <div className='naki-option-set1'>
           リーチ：
-          <OptionButton1 label="あり" selected={selectedOption2} onClick={() => setSelectedOption2(true)} />
-          <OptionButton1 label="なし" selected={!selectedOption2} onClick={() => setSelectedOption2(false)} />
+          <OptionButton1 label="あり" selected={isRiichi} onClick={() => setIsRiichi(true)} />
+          <OptionButton1 label="なし" selected={!isRiichi} onClick={() => setIsRiichi(false)} />
         </div>
         <OptionButton2
           values={[0, 1, 2, 3, 4]}
@@ -57,8 +57,8 @@ const OptionButtonContainer: React.FC<OptionButtonContainerProps> = ({
         />
         <div className='naki-option-set1'>
           あがり方：
-          <OptionButton1 label="ロン" selected={selectedOption3} onClick={() => setSelectedOption3(true)} />
-          <OptionButton1 label="ツモ" selected={!selectedOption3} onClick={() => setSelectedOption3(false)} />
+          <OptionButton1 label="ロン" selected={isRon} onClick={() => setIsRon(true)} />
+          <OptionButton1 label="ツモ" selected={!isRon} onClick={() => setIsRon(false)} />
         </div>
         <OptionButton2
           values={[0, 1, 2, 3, 4]}

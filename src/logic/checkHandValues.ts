@@ -21,7 +21,7 @@ import isPinfu from "./valueCheckFunctions/isPinfu";
 import is3Anko from "./valueCheckFunctions/is3Anko";
 import calculateHan from "./calculateHan";
 
-const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: true | { hand: string[][][], chiiTiles: string[][], ponTiles: string[][], kanTiles: string[][] }, agariTile: string, kanCount: number, typeOfKan: boolean[], selectedOption1: boolean, selectedOption3: boolean): string[] => {
+const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: true | { hand: string[][][], chiiTiles: string[][], ponTiles: string[][], kanTiles: string[][] }, agariTile: string, kanCount: number, typeOfKan: boolean[], hasCalled: boolean, isRon: boolean): string[] => {
     //成立した役のリスト
     let yakuList: string[] = [];
 
@@ -55,7 +55,7 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
     }
 
     //四暗刻
-    if (is4Anko(tileCount, agariTile, selectedOption1, selectedOption3)) {
+    if (is4Anko(tileCount, agariTile, hasCalled, isRon)) {
         //四暗刻単騎の確認
         if (is4AnkoTanki(tileCount, agariTile)) {
             yakuList.push("四暗刻単騎");
@@ -175,13 +175,13 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
         let tempYakuList: string[] = [];
 
         //一盃口・二盃口
-        const resultOfPeikou = checkIipeikouAndRyanpeikou(structure, selectedOption1);
+        const resultOfPeikou = checkIipeikouAndRyanpeikou(structure, hasCalled);
         if (resultOfPeikou !== false) {
             tempYakuList.push(resultOfPeikou);
         }
 
         //平和
-        if (isPinfu(structure, selectedOption1, agariTile)) {
+        if (isPinfu(structure, hasCalled, agariTile)) {
             tempYakuList.push("平和");
         }
 
@@ -212,12 +212,12 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
         }
 
         //三暗刻
-        if (is3Anko(structure, typeOfKan, agariTile, selectedOption3)) {
+        if (is3Anko(structure, typeOfKan, agariTile, isRon)) {
             tempYakuList.push("三暗刻");
         }
 
         //翻数が最も多い組をbestYakuListとする
-        if (calculateHan(tempYakuList, selectedOption1) > calculateHan(bestYakuList, selectedOption1)) {
+        if (calculateHan(tempYakuList, hasCalled) > calculateHan(bestYakuList, hasCalled)) {
             bestYakuList = tempYakuList;
         }
     });

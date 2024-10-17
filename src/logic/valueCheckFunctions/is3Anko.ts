@@ -1,4 +1,4 @@
-const is3Anko = (structure: string[][], typeOfKan: boolean[], agariTile: string, selectedOption3: boolean) => {
+const is3Anko = (structure: string[][], typeOfKan: boolean[], agariTile: string, isRon: boolean) => {
     let tripletCount = 0;
 
     //手牌の暗刻の数をカウントする
@@ -6,7 +6,7 @@ const is3Anko = (structure: string[][], typeOfKan: boolean[], agariTile: string,
         //刻子であることを確認
         if (group.length === 3 && group[0] === group[1]) {
             //ロンあがりかつあがり牌がgroupに含まれる場合、刻子としてはカウントしない
-            if (selectedOption3 && group[0] === agariTile) {
+            if (isRon && group[0] === agariTile) {
                 return;
             }
             tripletCount++;

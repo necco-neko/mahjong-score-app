@@ -11,9 +11,9 @@ import calculateHan from './logic/calculateHan';
 
 const App: React.FC = () => {
   //選択オプション
-  const [selectedOption1, setSelectedOption1] = useState<boolean>(false);
-  const [selectedOption2, setSelectedOption2] = useState<boolean>(false);
-  const [selectedOption3, setSelectedOption3] = useState<boolean>(false);
+  const [hasCalled, setHasCalled] = useState<boolean>(false);
+  const [isRiichi, setIsRiichi] = useState<boolean>(false);
+  const [isRon, setIsRon] = useState<boolean>(false);
   const [ponCount, setPonCount] = useState<number>(0);
   const [chiiCount, setChiiCount] = useState<number>(0);
   const [kanCount, setKanCount] = useState<number>(0);
@@ -33,10 +33,10 @@ const App: React.FC = () => {
 
   // selectedOption1がfalseに変更された(鳴きなしのとき)、typeOfKanを全てfalseにする
   useEffect(() => {
-    if (!selectedOption1) {
+    if (!hasCalled) {
       setTypeOfKan(Array(kanCount).fill(false));
     }
-  }, [selectedOption1, kanCount]);
+  }, [hasCalled, kanCount]);
 
   //麻雀牌クリックによる牌ロットへの追加処理
   const handleTilesClick = (src: string) => {
@@ -74,9 +74,9 @@ const App: React.FC = () => {
 
   //全リセットボタンの処理
   const resetAll = () => {
-    setSelectedOption1(false);
-    setSelectedOption2(false);
-    setSelectedOption3(false);
+    setHasCalled(false);
+    setIsRiichi(false);
+    setIsRon(false);
     setPonCount(0);
     setChiiCount(0);
     setKanCount(0);
@@ -96,7 +96,7 @@ const App: React.FC = () => {
   const calculateScore = () => {
     console.log(typeOfKan);
     const selectedLabels = getLabelsFromSrc(selectedTiles);
-    const handStructures = checkSelectedTiles(selectedLabels, selectedOption1, ponCount, chiiCount, kanCount);
+    const handStructures = checkSelectedTiles(selectedLabels, hasCalled, ponCount, chiiCount, kanCount);
     //不正な手牌の場合は計算せず終了
     if (handStructures === false) {
       console.log("あがれません");
@@ -108,14 +108,14 @@ const App: React.FC = () => {
     //役満があるか確認
     const tileCountOfAll = tileCount(selectedLabels as string[]);// checkSelectedTilesによりnullを含まないことを保証
     const agariTile = selectedLabels[selectedLabels.length - 1] as string;
-    const yakuList = checkHandValues(tileCountOfAll, handStructures, agariTile, kanCount, typeOfKan, selectedOption1, selectedOption3);
+    const yakuList = checkHandValues(tileCountOfAll, handStructures, agariTile, kanCount, typeOfKan, hasCalled, isRon);
     console.log(yakuList);
     if (yakuList.length > 0) {
       //役満の確認
       countYakuman(yakuList);
       //通常役を確認
       console.log("通常役を確認します");
-      const numOfHan = calculateHan(yakuList, selectedOption1);
+      const numOfHan = calculateHan(yakuList, hasCalled);
       console.log(numOfHan + "翻");
       return;
     }
@@ -127,12 +127,12 @@ const App: React.FC = () => {
       <h1 className='title'>麻雀点数計算</h1>
       {/*オプションボタン*/}
       <OptionButtonContainer
-        selectedOption1={selectedOption1}
-        setSelectedOption1={setSelectedOption1}
-        selectedOption2={selectedOption2}
-        setSelectedOption2={setSelectedOption2}
-        selectedOption3={selectedOption3}
-        setSelectedOption3={setSelectedOption3}
+        hasCalled={hasCalled}
+        setHasCalled={setHasCalled}
+        isRiichi={isRiichi}
+        setIsRiichi={setIsRiichi}
+        isRon={isRon}
+        setIsRon={setIsRon}
         ponCount={ponCount}
         setPonCount={setPonCount}
         chiiCount={chiiCount}
@@ -151,7 +151,7 @@ const App: React.FC = () => {
         ponCount={ponCount} 
         chiiCount={chiiCount} 
         kanCount={kanCount} 
-        selectedOption1={selectedOption1} 
+        hasCalled={hasCalled} 
         selectedTiles={selectedTiles}
         typeOfKan={typeOfKan}
         setTypeOfKan={handleSetTypeOfKan}
