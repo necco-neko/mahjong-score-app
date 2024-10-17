@@ -22,8 +22,8 @@ export const OptionButton1: React.FC<OptionButton1Props> = ({ label, selected, o
 
 export const OptionButton2: React.FC<OptionButton2Props> = ({ values, selectedValue, onClick, label }) => {
     return (
-        <div className='naki-option-set2'>
-            {label}：
+        <div className='naki-option-set'>
+            <label>{label}：</label>
             {values.map((value) => (
                 <button
                     key={value}

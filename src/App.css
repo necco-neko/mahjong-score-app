@@ -17,24 +17,24 @@ body {
 
 .option-container {
   display: grid;
-  grid-template-columns: auto auto;
-  column-gap: 0;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-.naki-option-set1 {
+.naki-option-set {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 30px;
+  font-weight: bold;
+  margin: 5px 0;
+  width: 100%;
+}
+
+.naki-option-set label {
+  width: 150px;
   text-align: right;
-  font-size: 30px;
-  font-weight: bold;
-  margin: 5px;
-  margin-left: 60px;
-}
-
-.naki-option-set2 {
-  text-align: left;
-  font-size: 30px;
-  font-weight: bold;
-  margin: 5px;
-  margin-left: 60px;
+  margin-right: 5px;
 }
 
 .option-button {
@@ -45,16 +45,13 @@ body {
   font-weight: bold;
   border-radius: 10px;
   margin: 5px;
+  padding: 10px;
 }
 
 .option-button.selected {
   border: 1px solid white;
   background-color: white;
   cursor: pointer;
-  font-size: 30px;
-  font-weight: bold;
-  border-radius: 10px;
-  margin: 5px;
 }
 
 .tiles-row {
