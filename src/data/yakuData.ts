@@ -34,7 +34,7 @@ export const commonYakuData: { [key: string]: number } = {
     "槍槓": 1, 
     "海底撈月": 1, 
     "河底撈魚": 1, 
-    "ダブルリーチ": 2, 
+    "ダブルリーチ": 1, //実際は2だがリーチと別管理しているため+1の意味で1としている
 };
 
 export const yakumanData: { [key: string]: number } = {
