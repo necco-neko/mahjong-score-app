@@ -67,7 +67,7 @@ const OtherOptions: React.FC<OtherOptionsProps> = ({
             setIsTenho(false);
             setIsChiho(false);
         }
-    }, [hasCalled, isRiichi, isRon, isKan]);
+    }, [hasCalled, isRiichi, isRon, isKan, setIsIppatsu, setIsDoubleriichi, setIsRinshankaiho, setIsHaitei, setIsChankan, setIsHotei, setIsTenho, setIsChiho]);
 
     const toggleOptions = () => {
         setShowOptions(!showOptions);
