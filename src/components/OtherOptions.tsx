@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import '../App.css';
 
 interface OtherOptionsProps {
@@ -47,6 +47,28 @@ const OtherOptions: React.FC<OtherOptionsProps> = ({
     setIsChiho,
 }) => {
     const [showOptions, setShowOptions] = useState(false);
+
+    //オプションが失効した場合、falseに戻す
+    useEffect(() => {
+        if (!isRiichi) {
+            setIsIppatsu(false);
+            setIsDoubleriichi(false);
+        }
+        if (!isKan) {
+            setIsRinshankaiho(false);
+        }
+        if (isRon) {
+            setIsHaitei(false);
+        } else {
+            setIsChankan(false);
+            setIsHotei(false);
+        }
+        if (hasCalled || isRiichi || isKan || isRon) {
+            setIsTenho(false);
+            setIsChiho(false);
+        }
+    }, [hasCalled, isRiichi, isRon, isKan]);
+
     const toggleOptions = () => {
         setShowOptions(!showOptions);
     };
