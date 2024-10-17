@@ -21,7 +21,7 @@ import isPinfu from "./valueCheckFunctions/isPinfu";
 import is3Anko from "./valueCheckFunctions/is3Anko";
 import calculateHan from "./calculateHan";
 
-const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: true | { hand: string[][][], chiiTiles: string[][], ponTiles: string[][], kanTiles: string[][] }, agariTile: string, kanCount: number, typeOfKan: boolean[], hasCalled: boolean, isRon: boolean): string[] => {
+const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: true | { hand: string[][][], chiiTiles: string[][], ponTiles: string[][], kanTiles: string[][] }, agariTile: string, kanCount: number, typeOfKan: boolean[], hasCalled: boolean, isRon: boolean, otherOptions: boolean[]): string[] => {
     //成立した役のリスト
     let yakuList: string[] = [];
 
@@ -98,6 +98,10 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
         yakuList.push("小四喜");
         return yakuList;
     }
+
+    //天和・地和
+    if (otherOptions[7]) yakuList.push("天和");
+    if (otherOptions[8]) yakuList.push("地和");
 
     //役満が一つでも含まれていたら通常役を確認する必要がない
     if (yakuList.length > 0) return yakuList;
@@ -224,6 +228,15 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
 
     //最良の役をyakuListに追加
     yakuList = [...yakuList, ...bestYakuList];
+
+    //オプションにより選択された通常役を追加
+    if (otherOptions[0]) yakuList.push("リーチ");
+    if (otherOptions[1]) yakuList.push("一発");
+    if (otherOptions[2]) yakuList.push("ダブルリーチ");
+    if (otherOptions[3]) yakuList.push("嶺上開花");
+    if (otherOptions[4]) yakuList.push("槍槓");
+    if (otherOptions[5]) yakuList.push("海底撈月");
+    if (otherOptions[6]) yakuList.push("河底撈魚");
 
     return yakuList;
 };

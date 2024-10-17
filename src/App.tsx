@@ -93,6 +93,14 @@ const App: React.FC = () => {
     setKanCount(0);
     setSelectedTiles(Array(14).fill(null));
     setTypeOfKan(Array(0).fill(false));
+    setIsIppatsu(false);
+    setIsDoubleriichi(false);
+    setIsRinshankaiho(false);
+    setIsChankan(false);
+    setIsHaitei(false);
+    setIsHotei(false);
+    setIsTenho(false);
+    setIsChiho(false);
   };
 
   //選択された牌のリスト(srcの配列)から牌のラベルのリストを取得する関数
@@ -116,10 +124,14 @@ const App: React.FC = () => {
 
     console.log(handStructures);
 
-    //役満があるか確認
-    const tileCountOfAll = tileCount(selectedLabels as string[]);// checkSelectedTilesによりnullを含まないことを保証
+    //役を確認
+
+    // checkSelectedTilesによりnullを含まないことを保証
+    const tileCountOfAll = tileCount(selectedLabels as string[]);
     const agariTile = selectedLabels[selectedLabels.length - 1] as string;
-    const yakuList = checkHandValues(tileCountOfAll, handStructures, agariTile, kanCount, typeOfKan, hasCalled, isRon);
+    //その他で選択されたオプション役の状態
+    const otherOptions = [isRiichi, isIppatsu, isDoubleriichi, isRinshankaiho, isChankan, isHaitei, isHotei, isTenho, isChiho];
+    const yakuList = checkHandValues(tileCountOfAll, handStructures, agariTile, kanCount, typeOfKan, hasCalled, isRon, otherOptions);
     console.log(yakuList);
     if (yakuList.length > 0) {
       //役満の確認
