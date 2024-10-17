@@ -85,7 +85,7 @@ const OtherOptions: React.FC<OtherOptionsProps> = ({
                             type="checkbox"
                             checked={isIppatsu}
                             onChange={() => setIsIppatsu(!isIppatsu)}
-                            disabled={isRiichi} //リーチなしのときは失効
+                            disabled={hasCalled || !isRiichi} //鳴きありorリーチなしのときは失効
                         />
                         <span>一発</span>
                     </label>
@@ -94,7 +94,7 @@ const OtherOptions: React.FC<OtherOptionsProps> = ({
                             type="checkbox"
                             checked={isDoubleriichi}
                             onChange={() => setIsDoubleriichi(!isDoubleriichi)}
-                            disabled={isRiichi} //リーチなしのときは失効
+                            disabled={hasCalled || !isRiichi} //鳴きありorリーチなしのときは失効
                         />
                         <span>ダブルリーチ</span>
                     </label>
@@ -103,7 +103,7 @@ const OtherOptions: React.FC<OtherOptionsProps> = ({
                             type="checkbox"
                             checked={isRinshankaiho}
                             onChange={() => setIsRinshankaiho(!isRinshankaiho)}
-                            disabled={!isKan} //カンなしのときは失効
+                            disabled={isRon || !isKan} //ロンorカンなしのときは失効
                         />
                         <span>嶺上開花(リンシャンカイホウ)</span>
                     </label>
