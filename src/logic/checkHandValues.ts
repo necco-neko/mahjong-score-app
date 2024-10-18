@@ -21,7 +21,7 @@ import isPinfu from "./valueCheckFunctions/isPinfu";
 import is3Anko from "./valueCheckFunctions/is3Anko";
 import calculateHan from "./calculateHan";
 
-const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: true | { hand: string[][][], chiiTiles: string[][], ponTiles: string[][], kanTiles: string[][] }, agariTile: string, kanCount: number, typeOfKan: boolean[], hasCalled: boolean, isRon: boolean, otherOptions: boolean[]): string[] => {
+const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: true | { hand: string[][][], chiiTiles: string[][], ponTiles: string[][], kanTiles: string[][] }, agariTile: string, kanCount: number, typeOfKan: boolean[], hasCalled: boolean, isRon: boolean, bakaze: string, jikaze: string, otherOptions: boolean[]): string[] => {
     //成立した役のリスト
     let yakuList: string[] = [];
 
@@ -148,8 +148,6 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
     yakuList = [...yakuList, ...sangenpaiYakuList];
 
     //門風牌・荘風牌
-    const jikaze = "東";
-    const bakaze = "南";
     const windYakuList = checkWind(jikaze, bakaze, tileCount);
     yakuList = [...yakuList, ...windYakuList];
 
