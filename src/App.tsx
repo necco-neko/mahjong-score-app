@@ -18,6 +18,8 @@ const App: React.FC = () => {
   const [ponCount, setPonCount] = useState<number>(0);
   const [chiiCount, setChiiCount] = useState<number>(0);
   const [kanCount, setKanCount] = useState<number>(0);
+  const [bakaze, setBakaze] = useState<string>("東");
+  const [jikaze, setJikaze] = useState<string>("東");
 
   //「その他」内の選択オプション
   const [isIppatsu, setIsIppatsu] = useState(false); //リーチ一発
@@ -162,6 +164,10 @@ const App: React.FC = () => {
         setChiiCount={setChiiCount}
         kanCount={kanCount}
         setKanCount={setKanCount}
+        bakaze={bakaze}
+        setBakaze={setBakaze}
+        jikaze={jikaze}
+        setJikaze={setJikaze}
       />
       {/*その他のオプション*/}
       <OtherOptions

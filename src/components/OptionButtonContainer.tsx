@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../App.css';
 import { OptionButton1, OptionButton2} from './OptionButton';
 
@@ -15,6 +15,10 @@ interface OptionButtonContainerProps {
     setChiiCount: (value: number) => void;
     kanCount: number;
     setKanCount: (value: number) => void;
+    bakaze: string
+    setBakaze: (wind: string) => void;
+    jikaze: string
+    setJikaze: (wind: string) => void;
 }
 
 const OptionButtonContainer: React.FC<OptionButtonContainerProps> = ({
@@ -30,7 +34,33 @@ const OptionButtonContainer: React.FC<OptionButtonContainerProps> = ({
     setChiiCount,
     kanCount,
     setKanCount,
+    bakaze,
+    setBakaze,
+    jikaze,
+    setJikaze,
 }) => {
+  const [showBakazeOptions, setShowBakazeOptions] = useState(false);
+  const [showJikazeOptions, setShowJikazeOptions] = useState(false);
+  const winds = ["東","南","西","北"];
+
+  const toggleBakazeOptions = () => {
+    setShowBakazeOptions(!showBakazeOptions);
+  };
+
+  const toggleJikazeOptions = () => {
+    setShowJikazeOptions(!showJikazeOptions);
+  };
+
+  const selectBakaze = (wind: string) => {
+    setBakaze(wind);
+    setShowBakazeOptions(false);
+  };
+
+  const selectJikaze = (wind: string) => {
+    setJikaze(wind);
+    setShowJikazeOptions(false);
+  };
+
   return (
     <div className='option-container'>
         <div className='naki-option-set'>
@@ -79,6 +109,40 @@ const OptionButtonContainer: React.FC<OptionButtonContainerProps> = ({
           <label>あがり方：</label>
           <OptionButton1 label="ロン" selected={isRon} onClick={() => setIsRon(true)} />
           <OptionButton1 label="ツモ" selected={!isRon} onClick={() => setIsRon(false)} />
+        </div>
+
+        {/* 場風と自風の選択 */}
+        <div className='wind-option'>
+          <div>
+            <label>場風：</label>
+            <button className='wind-button' onClick={toggleBakazeOptions}>
+              {bakaze}
+            </button>
+            {showBakazeOptions && (
+              <div className='dropdown-menu'>
+                {winds.map((wind) => (
+                  <div key={wind} onClick={() => selectBakaze(wind)}>
+                    {wind}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <div>
+            <label>自風：</label>
+            <button className='wind-button' onClick={toggleJikazeOptions}>
+              {jikaze}
+            </button>
+            {showJikazeOptions && (
+              <div className='dropdown-menu'>
+                {winds.map((wind) => (
+                  <div key={wind} onClick={() => selectJikaze(wind)}>
+                    {wind}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
     </div>
   );
