@@ -93,6 +93,8 @@ const App: React.FC = () => {
     setPonCount(0);
     setChiiCount(0);
     setKanCount(0);
+    setBakaze("東");
+    setJikaze("東");
     setSelectedTiles(Array(14).fill(null));
     setTypeOfKan(Array(0).fill(false));
     setIsIppatsu(false);
