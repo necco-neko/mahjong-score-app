@@ -21,7 +21,32 @@ import isPinfu from "./valueCheckFunctions/isPinfu";
 import is3Anko from "./valueCheckFunctions/is3Anko";
 import calculateHan from "./calculateHan";
 
-const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: true | { hand: string[][][], chiiTiles: string[][], ponTiles: string[][], kanTiles: string[][] }, agariTile: string, kanCount: number, typeOfKan: boolean[], hasCalled: boolean, isRon: boolean, bakaze: string, jikaze: string, otherOptions: boolean[]): { yakuList: string[], bestStructure: string[][] | null } => {
+interface HandStructure {
+    hand: string[][][];
+    chiiTiles: string[][];
+    ponTiles: string[][];
+    kanTiles: string[][];
+}
+
+interface BestStructure {
+    bestHand: string[][];
+    chiiTiles: string[][];
+    ponTiles: string[][];
+    kanTiles: string[][];
+}
+
+const checkHandValues = (
+    tileCount: { [key: string ]: number },
+    handStructures: true | HandStructure,
+    agariTile: string,
+    kanCount: number,
+    typeOfKan: boolean[],
+    hasCalled: boolean,
+    isRon: boolean,
+    bakaze: string,
+    jikaze: string,
+    otherOptions: boolean[]
+): { yakuList: string[], bestStructure: BestStructure | null } => {
     //成立した役のリスト
     let yakuList: string[] = [];
 
@@ -171,7 +196,7 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
 
     //handStructuresの各パターンに対して役を確認し、最大の役リストを返す
     let bestYakuList: string[] = [];
-    let bestStructure: string[][] | null = null;
+    let bestStructure: BestStructure | null = null;
 
     handStructures.hand.forEach((structure) => {
         //一時的なリスト
@@ -222,7 +247,12 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
         //翻数が最も多い組をbestYakuListとする
         if (calculateHan(tempYakuList, hasCalled) > calculateHan(bestYakuList, hasCalled)) {
             bestYakuList = tempYakuList;
-            bestStructure = structure;
+            bestStructure = {
+                bestHand: structure,
+                chiiTiles: handStructures.chiiTiles,
+                ponTiles: handStructures.ponTiles,
+                kanTiles: handStructures.kanTiles
+            };
         }
     });
 
