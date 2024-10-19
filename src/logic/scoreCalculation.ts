@@ -51,8 +51,9 @@ const scoreCalculation = (
     const agariTile = selectedLabels[selectedLabels.length - 1] as string;
     //その他で選択されたオプション役の状態
     const otherOptions = [isRiichi, isIppatsu, isDoubleriichi, isRinshankaiho, isChankan, isHaitei, isHotei, isTenho, isChiho];
-    const yakuList = checkHandValues(tileCountOfAll, handStructures, agariTile, kanCount, typeOfKan, hasCalled, isRon, bakaze, jikaze, otherOptions);
+    const { yakuList, bestStructure } = checkHandValues(tileCountOfAll, handStructures, agariTile, kanCount, typeOfKan, hasCalled, isRon, bakaze, jikaze, otherOptions);
     console.log(yakuList);
+    console.log(bestStructure);
     if (yakuList.length > 0) {
       //役満の確認
       countYakuman(yakuList);

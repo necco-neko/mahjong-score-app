@@ -21,7 +21,7 @@ import isPinfu from "./valueCheckFunctions/isPinfu";
 import is3Anko from "./valueCheckFunctions/is3Anko";
 import calculateHan from "./calculateHan";
 
-const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: true | { hand: string[][][], chiiTiles: string[][], ponTiles: string[][], kanTiles: string[][] }, agariTile: string, kanCount: number, typeOfKan: boolean[], hasCalled: boolean, isRon: boolean, bakaze: string, jikaze: string, otherOptions: boolean[]): string[] => {
+const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: true | { hand: string[][][], chiiTiles: string[][], ponTiles: string[][], kanTiles: string[][] }, agariTile: string, kanCount: number, typeOfKan: boolean[], hasCalled: boolean, isRon: boolean, bakaze: string, jikaze: string, otherOptions: boolean[]): { yakuList: string[], bestStructure: string[][] | null } => {
     //成立した役のリスト
     let yakuList: string[] = [];
 
@@ -35,7 +35,7 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
         } else {
             yakuList.push("国士無双")
         }
-        return yakuList;
+        return { yakuList, bestStructure: null };
     }
 
     //九蓮宝燈
@@ -46,7 +46,7 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
         } else {
             yakuList.push("九蓮宝燈");
         }
-        return yakuList;
+        return { yakuList, bestStructure: null };
     }
 
     //四槓子
@@ -67,36 +67,36 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
     //緑一色
     if (isRyuiso(tileCount)) {
         yakuList.push("緑一色");
-        return yakuList;
+        return { yakuList, bestStructure: null };
     }
 
     //清老頭
     if (isChinroutou(tileCount)) {
         yakuList.push("清老頭");
-        return yakuList;
+        return { yakuList, bestStructure: null };
     }
 
     //字一色
     if (isTsuiso(tileCount)) {
-        yakuList.push("字一色");
+        return { yakuList, bestStructure: null };
     }
 
     //大三元
     if (isDaisangen(tileCount)) {
         yakuList.push("大三元");
-        return yakuList;
+        return { yakuList, bestStructure: null };
     }
 
     //大四喜
     if (isDaisushi(tileCount)) {
         yakuList.push("大四喜");
-        return yakuList;
+        return { yakuList, bestStructure: null };
     }
 
     //小四喜
     if (isShosushi(tileCount)) {
         yakuList.push("小四喜");
-        return yakuList;
+        return { yakuList, bestStructure: null };
     }
 
     //天和・地和
@@ -104,7 +104,7 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
     if (otherOptions[8]) yakuList.push("地和");
 
     //役満が一つでも含まれていたら通常役を確認する必要がない
-    if (yakuList.length > 0) return yakuList;
+    if (yakuList.length > 0) return { yakuList, bestStructure: null };
 
     //通常役の確認
 
@@ -131,7 +131,7 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
             yakuList.push("混老頭");
         }
 
-        return yakuList;
+        return { yakuList, bestStructure: null };
     }
 
     //以下、通常形
@@ -171,6 +171,7 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
 
     //handStructuresの各パターンに対して役を確認し、最大の役リストを返す
     let bestYakuList: string[] = [];
+    let bestStructure: string[][] | null = null;
 
     handStructures.hand.forEach((structure) => {
         //一時的なリスト
@@ -221,6 +222,7 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
         //翻数が最も多い組をbestYakuListとする
         if (calculateHan(tempYakuList, hasCalled) > calculateHan(bestYakuList, hasCalled)) {
             bestYakuList = tempYakuList;
+            bestStructure = structure;
         }
     });
 
@@ -236,7 +238,7 @@ const checkHandValues = (tileCount: { [key: string ]: number }, handStructures: 
     if (otherOptions[5]) yakuList.push("海底撈月");
     if (otherOptions[6]) yakuList.push("河底撈魚");
 
-    return yakuList;
+    return { yakuList, bestStructure };
 };
 
 export default checkHandValues;
