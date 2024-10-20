@@ -1,12 +1,13 @@
 import { yakumanData } from "../data/yakuData";
 
-const countYakuman = (yakuList: string[]) => {
+const countYakuman = (yakuList: string[]): number => {
     let yakumanCount = 0;
     yakuList.forEach(yaku => {
       if (yakumanData[yaku]) {
         yakumanCount += yakumanData[yaku];
       }
     });
+
     switch(yakumanCount) {
         case 1:
             console.log("役満");
@@ -25,6 +26,8 @@ const countYakuman = (yakuList: string[]) => {
             }
             break;
     }
+
+    return yakumanCount;
 }
 
 export default countYakuman;

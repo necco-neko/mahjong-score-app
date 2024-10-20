@@ -1,5 +1,6 @@
 import tilesData from "../data/tilesData";
 import tileCount from "../utils/tileCount";
+import calculateFu from "./calculateFu";
 import calculateHan from "./calculateHan";
 import checkHandValues from "./checkHandValues";
 import checkSelectedTiles from "./checkSelectedTiles";
@@ -33,7 +34,6 @@ const scoreCalculation = (
     selectedTiles: (string | null)[],
     typeOfKan: boolean[],
 ) => {
-    console.log(typeOfKan);
     const selectedLabels = getLabelsFromSrc(selectedTiles);
     const handStructures = checkSelectedTiles(selectedLabels, hasCalled, ponCount, chiiCount, kanCount);
     //不正な手牌の場合は計算せず終了
@@ -42,27 +42,38 @@ const scoreCalculation = (
       return;
     };
 
-    console.log(handStructures);
-
     //役を確認
 
-    // checkSelectedTilesによりnullを含まないことを保証
+    //不正の場合を除外したため、string,string[]として扱える
     const tileCountOfAll = tileCount(selectedLabels as string[]);
     const agariTile = selectedLabels[selectedLabels.length - 1] as string;
+
     //その他で選択されたオプション役の状態
     const otherOptions = [isRiichi, isIppatsu, isDoubleriichi, isRinshankaiho, isChankan, isHaitei, isHotei, isTenho, isChiho];
+
+    //役リストとその時の手牌の構造を取得
     const { yakuList, bestStructure } = checkHandValues(tileCountOfAll, handStructures, agariTile, kanCount, typeOfKan, hasCalled, isRon, bakaze, jikaze, otherOptions);
     console.log(yakuList);
     console.log(bestStructure);
-    if (yakuList.length > 0) {
-      //役満の確認
-      countYakuman(yakuList);
-      //通常役を確認
-      console.log("通常役を確認します");
-      const numOfHan = calculateHan(yakuList, hasCalled);
-      console.log(numOfHan + "翻");
-      return;
+
+    //役満の確認
+    const yakumanCount = countYakuman(yakuList);
+    if (yakumanCount > 0) return; //役満があれば終了
+
+    //通常役の確認
+    const numOfHan = calculateHan(yakuList, hasCalled);
+
+    //0翻数の場合は役なしを出力して終了
+    if (numOfHan === 0) {
+      console.log("役がありません");
+      return
     }
+
+    //符計算
+    const numOfFu = calculateFu(bestStructure, hasCalled, isRon, bakaze, jikaze, agariTile, typeOfKan, yakuList);
+
+    //〜符〜翻を出力して終了
+    console.log(`${numOfFu}符 ${numOfHan}翻`);
 };
 
 export default scoreCalculation;
