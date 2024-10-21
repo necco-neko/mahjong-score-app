@@ -108,7 +108,7 @@ const App: React.FC = () => {
 
   //計算ボタンの処理
   const calculateScore = () => {
-    scoreCalculation(hasCalled, isRiichi, isRon, ponCount, chiiCount, kanCount, bakaze, jikaze, isIppatsu, isDoubleriichi, isRinshankaiho, isChankan, isHaitei, isHotei, isTenho, isChiho, selectedTiles, typeOfKan);
+    scoreCalculation(hasCalled, isRiichi, isRon, ponCount, chiiCount, kanCount, bakaze, jikaze, isIppatsu, isDoubleriichi, isRinshankaiho, isChankan, isHaitei, isHotei, isTenho, isChiho, selectedTiles, typeOfKan, numOfDora);
   };
 
   return (

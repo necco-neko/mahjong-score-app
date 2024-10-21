@@ -33,6 +33,7 @@ const scoreCalculation = (
     isChiho: boolean,
     selectedTiles: (string | null)[],
     typeOfKan: boolean[],
+    numOfDora: number,
 ) => {
     const selectedLabels = getLabelsFromSrc(selectedTiles);
     const handStructures = checkSelectedTiles(selectedLabels, hasCalled, ponCount, chiiCount, kanCount);
@@ -53,21 +54,24 @@ const scoreCalculation = (
 
     //役リストとその時の手牌の構造を取得
     const { yakuList, bestStructure } = checkHandValues(tileCountOfAll, handStructures, agariTile, kanCount, typeOfKan, hasCalled, isRon, bakaze, jikaze, otherOptions);
-    console.log(yakuList);
-    console.log(bestStructure);
 
     //役満の確認
     const yakumanCount = countYakuman(yakuList);
     if (yakumanCount > 0) return; //役満があれば終了
 
     //通常役の確認
-    const numOfHan = calculateHan(yakuList, hasCalled);
+    let numOfHan = calculateHan(yakuList, hasCalled);
 
     //0翻数の場合は役なしを出力して終了
     if (numOfHan === 0) {
       console.log("役がありません");
       return
     }
+
+    //翻数および役リストにドラを加算
+    numOfHan += numOfDora;
+    yakuList.push(`ドラ${numOfDora}`);
+    console.log(yakuList);
 
     //符計算
     const numOfFu = calculateFu(bestStructure, hasCalled, isRon, bakaze, jikaze, agariTile, typeOfKan, yakuList);
