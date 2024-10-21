@@ -19,6 +19,8 @@ interface OptionButtonContainerProps {
     setBakaze: (wind: string) => void;
     jikaze: string
     setJikaze: (wind: string) => void;
+    numOfDora: number;
+    setNumOfDora: (value: number) => void;
 }
 
 const OptionButtonContainer: React.FC<OptionButtonContainerProps> = ({
@@ -38,10 +40,14 @@ const OptionButtonContainer: React.FC<OptionButtonContainerProps> = ({
     setBakaze,
     jikaze,
     setJikaze,
+    numOfDora,
+    setNumOfDora,
 }) => {
   const [showBakazeOptions, setShowBakazeOptions] = useState(false);
   const [showJikazeOptions, setShowJikazeOptions] = useState(false);
   const winds = ["東","南","西","北"];
+
+  const [showDoraOption, setShowDoraOption] = useState(false);
 
   const toggleBakazeOptions = () => {
     setShowBakazeOptions(!showBakazeOptions);
@@ -49,6 +55,10 @@ const OptionButtonContainer: React.FC<OptionButtonContainerProps> = ({
 
   const toggleJikazeOptions = () => {
     setShowJikazeOptions(!showJikazeOptions);
+  };
+
+  const toggleDoraOption = () => {
+    setShowDoraOption(!showDoraOption);
   };
 
   const selectBakaze = (wind: string) => {
@@ -59,6 +69,11 @@ const OptionButtonContainer: React.FC<OptionButtonContainerProps> = ({
   const selectJikaze = (wind: string) => {
     setJikaze(wind);
     setShowJikazeOptions(false);
+  };
+
+  const selectDora = (value: number) => {
+    setNumOfDora(value);
+    setShowDoraOption(false);
   };
 
   return (
@@ -119,7 +134,7 @@ const OptionButtonContainer: React.FC<OptionButtonContainerProps> = ({
               {bakaze}
             </button>
             {showBakazeOptions && (
-              <div className='dropdown-menu'>
+              <div className='wind-dropdown-menu'>
                 {winds.map((wind) => (
                   <div key={wind} onClick={() => selectBakaze(wind)}>
                     {wind}
@@ -134,7 +149,7 @@ const OptionButtonContainer: React.FC<OptionButtonContainerProps> = ({
               {jikaze}
             </button>
             {showJikazeOptions && (
-              <div className='dropdown-menu'>
+              <div className='wind-dropdown-menu'>
                 {winds.map((wind) => (
                   <div key={wind} onClick={() => selectJikaze(wind)}>
                     {wind}
@@ -143,6 +158,23 @@ const OptionButtonContainer: React.FC<OptionButtonContainerProps> = ({
               </div>
             )}
           </div>
+        </div>
+
+        {/* ドラの数を選択 */}
+        <div className='dora-option'>
+          <label>ドラ：</label>
+          <button className='dora-button' onClick={toggleDoraOption}>
+            {numOfDora}
+          </button>
+          {showDoraOption && (
+            <div className='dora-dropdown-menu'>
+              {Array.from({ length: 45 }, (_, i) => (
+                <div key={i} onClick={() => selectDora(i)}>
+                  {i}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
     </div>
   );

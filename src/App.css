@@ -202,6 +202,7 @@ body {
   display: flex;
   align-items: center;
   margin-top: 10px;
+  margin-bottom: 10px;
   position: relative;
 }
 
@@ -227,10 +228,12 @@ body {
   text-align: center;
 }
 
-.dropdown-menu {
+.wind-dropdown-menu {
   position: absolute;
   top: 100%;
   right: 0;
+  font-size: 24px;
+  font-weight: bold;
   background-color: white;
   border: 1px solid white;
   border-radius: 5px;
@@ -238,12 +241,66 @@ body {
   width: 100px;
 }
 
-.dropdown-menu div {
+.wind-dropdown-menu div {
   padding: 10px;
   cursor: pointer;
 }
 
-.dropdown-menu div:hover {
+.wind-dropdown-menu div:hover {
+  background-color: lightgray;
+  cursor: pointer;
+}
+
+.dora-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 30px;
+  font-weight: bold;
+  margin: 5px 0;
+  width: 100%;
+}
+
+.dora-option label {
+  width: 150px;
+  text-align: right;
+  margin-right: 5px;
+}
+
+.dora-button {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: white;
+  border: 1px solid white;
+  cursor: pointer;
+  width: 100px;
+  text-align: center;
+}
+
+.dora-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 180px; /*無理やりすぎる設定*/
+  font-size: 24px;
+  font-weight: bold;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  z-index: 1000;
+  width: 100px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.dora-dropdown-menu div {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dora-dropdown-menu div:hover {
   background-color: lightgray;
   cursor: pointer;
 }

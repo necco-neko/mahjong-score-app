@@ -33,6 +33,9 @@ const App: React.FC = () => {
   //カンの種類(true: 明カン, false: 暗カン)
   const [typeOfKan, setTypeOfKan] = useState<boolean[]>(Array(kanCount).fill(false));
 
+  //ドラの数
+  const [numOfDora, setNumOfDora] = useState<number>(0);
+
   // カンの種類を更新する関数
   const handleSetTypeOfKan = (index: number, value: boolean) => {
     const newTypeOfKan = [...typeOfKan];
@@ -130,6 +133,8 @@ const App: React.FC = () => {
         setBakaze={setBakaze}
         jikaze={jikaze}
         setJikaze={setJikaze}
+        numOfDora={numOfDora}
+        setNumOfDora={setNumOfDora}
       />
       {/*その他のオプション*/}
       <OtherOptions
