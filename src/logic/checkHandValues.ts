@@ -156,6 +156,14 @@ const checkHandValues = (
             yakuList.push("混老頭");
         }
 
+        //七対子と同時に成立するオプション役
+        if (otherOptions[0]) yakuList.push("リーチ");
+        if (otherOptions[1]) yakuList.push("一発");
+        if (otherOptions[2]) yakuList.push("ダブルリーチ");
+        if (otherOptions[4]) yakuList.push("槍槓");
+        if (otherOptions[5]) yakuList.push("海底撈月");
+        if (otherOptions[6]) yakuList.push("河底撈魚");
+
         return { yakuList, bestStructure: null };
     }
 
