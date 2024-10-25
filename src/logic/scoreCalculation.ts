@@ -1,3 +1,4 @@
+import { manganTableKo, manganTableOya, scoreTableKo, scoreTableOya } from "../data/scoreTable";
 import tilesData from "../data/tilesData";
 import tileCount from "../utils/tileCount";
 import calculateFu from "./calculateFu";
@@ -5,6 +6,7 @@ import calculateHan from "./calculateHan";
 import checkHandValues from "./checkHandValues";
 import checkSelectedTiles from "./checkSelectedTiles";
 import countYakuman from "./countYakuman";
+import getScoreFromTable from "./getScoreFromTable";
 
 //選択された牌のリスト(srcの配列)から牌のラベルのリストを取得する関数
 const getLabelsFromSrc = (selectedTiles: (string | null)[]) => {
@@ -57,8 +59,10 @@ const scoreCalculation = (
 
     //役満の確認
     const yakumanCount = countYakuman(yakuList);
-    if (yakumanCount > 0) return; //役満があれば終了
+    if (yakumanCount > 0) { //役満があれば終了
 
+      return;
+    }
     //通常役の確認
     let numOfHan = calculateHan(yakuList, hasCalled);
 
@@ -76,8 +80,17 @@ const scoreCalculation = (
     //符計算
     const numOfFu = calculateFu(bestStructure, hasCalled, isRon, bakaze, jikaze, agariTile, typeOfKan, yakuList);
 
-    //〜符〜翻を出力して終了
+    //〜符〜翻を出力
     console.log(`${numOfFu}符 ${numOfHan}翻`);
+
+    //符・翻数に応じた点数を計算
+
+    //親か子かを確認し、どの表を参照するか決定
+    const isOya = jikaze === "東";
+
+    //表から点数を取得
+    const score = getScoreFromTable(numOfFu, numOfHan, isOya, isRon);
+    console.log(score);
 };
 
 export default scoreCalculation;
