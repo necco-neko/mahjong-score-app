@@ -204,7 +204,12 @@ const checkHandValues = (
 
     //handStructuresの各パターンに対して役を確認し、最大の役リストを返す
     let bestYakuList: string[] = [];
-    let bestStructure: BestStructure | null = null;
+    let bestStructure: BestStructure | null = {
+        bestHand: handStructures.hand[0],
+        chiiTiles: handStructures.chiiTiles,
+        ponTiles: handStructures.ponTiles,
+        kanTiles: handStructures.kanTiles
+    }; //手牌構成が1通りの場合があるため、bestStructureの初期値はnullではなく、1つ目のパターンとする
 
     handStructures.hand.forEach((structure) => {
         //一時的なリスト
