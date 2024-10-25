@@ -1,4 +1,3 @@
-import { manganTableKo, manganTableOya, scoreTableKo, scoreTableOya } from "../data/scoreTable";
 import tilesData from "../data/tilesData";
 import tileCount from "../utils/tileCount";
 import calculateFu from "./calculateFu";
