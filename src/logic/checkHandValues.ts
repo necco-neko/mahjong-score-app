@@ -50,6 +50,10 @@ const checkHandValues = (
     //成立した役のリスト
     let yakuList: string[] = [];
 
+    //天和・地和
+    if (otherOptions[7]) yakuList.push("天和");
+    if (otherOptions[8]) yakuList.push("地和");
+
     //手牌から確認できる役満
 
     //国士無双
@@ -123,10 +127,6 @@ const checkHandValues = (
         yakuList.push("小四喜");
         return { yakuList, bestStructure: null };
     }
-
-    //天和・地和
-    if (otherOptions[7]) yakuList.push("天和");
-    if (otherOptions[8]) yakuList.push("地和");
 
     //役満が一つでも含まれていたら通常役を確認する必要がない
     if (yakuList.length > 0) return { yakuList, bestStructure: null };
