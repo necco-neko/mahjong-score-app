@@ -5,6 +5,7 @@ import { SelectedTilesRow } from './components/SelectedTilesRow';
 import OptionButtonContainer from './components/OptionButtonContainer';
 import OtherOptions from './components/OtherOptions';
 import scoreCalculation from './logic/scoreCalculation';
+import CalculateResult from './components/CalculateResult';
 
 const App: React.FC = () => {
   //選択オプション
@@ -35,6 +36,9 @@ const App: React.FC = () => {
 
   //ドラの数
   const [numOfDora, setNumOfDora] = useState<number>(0);
+
+  //計算結果表示のための値
+  const [calculationResult, setCalculationResult] = useState<ReturnType<typeof scoreCalculation> | null>(null);
 
   // カンの種類を更新する関数
   const handleSetTypeOfKan = (index: number, value: boolean) => {
@@ -104,12 +108,24 @@ const App: React.FC = () => {
     setIsHotei(false);
     setIsTenho(false);
     setIsChiho(false);
+    setNumOfDora(0);
+    setCalculationResult(null);
   };
 
   //計算ボタンの処理
   const calculateScore = () => {
-    scoreCalculation(hasCalled, isRiichi, isRon, ponCount, chiiCount, kanCount, bakaze, jikaze, isIppatsu, isDoubleriichi, isRinshankaiho, isChankan, isHaitei, isHotei, isTenho, isChiho, selectedTiles, typeOfKan, numOfDora);
+    const result = scoreCalculation(
+      hasCalled, isRiichi, isRon, ponCount, chiiCount, kanCount, bakaze, jikaze,
+      isIppatsu, isDoubleriichi, isRinshankaiho, isChankan, isHaitei, isHotei,
+      isTenho, isChiho, selectedTiles, typeOfKan, numOfDora
+    );
+    setCalculationResult(result);
   };
+
+  //依存する全てのオプションや状態が変更されたときに計算結果をリセット
+  useEffect(() => {
+    setCalculationResult(null);
+  }, [hasCalled, isRiichi, isRon, ponCount, chiiCount, kanCount, bakaze, jikaze, isIppatsu, isDoubleriichi, isRinshankaiho, isChankan, isHaitei, isHotei, isTenho, isChiho, selectedTiles, typeOfKan, numOfDora])
 
   return (
     <div className='container'>
@@ -182,6 +198,7 @@ const App: React.FC = () => {
         <button onClick={resetAll}>全リセット</button>
         <button onClick={calculateScore}>計算する</button>
       </div>
+      <CalculateResult calculationResult={calculationResult} isRon={isRon} />
     </div>
   )
 }
