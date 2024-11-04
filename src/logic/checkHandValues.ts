@@ -273,6 +273,7 @@ const checkHandValues = (
     yakuList = [...yakuList, ...bestYakuList];
 
     //オプションにより選択された通常役を追加
+    if (!isRon && !hasCalled) yakuList.push("門前清自摸和(ツモ)");
     if (otherOptions[0]) yakuList.push("リーチ");
     if (otherOptions[1]) yakuList.push("一発");
     if (otherOptions[2]) yakuList.push("ダブルリーチ");
