@@ -120,6 +120,11 @@ const App: React.FC = () => {
       isTenho, isChiho, selectedTiles, typeOfKan, numOfDora
     );
     setCalculationResult(result);
+    //結果が表示されるように画面を一番下までスクロール
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth',
+    });
   };
 
   //依存する全てのオプションや状態が変更されたときに計算結果をリセット
