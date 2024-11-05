@@ -1,0 +1,97 @@
+.score-container {
+    padding: 16px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    max-width: 500px;
+    margin: 50px auto;
+}
+
+.invalid-message{
+    white-space: pre-line;
+    padding: 12px;
+    border: 1px solid red;
+    background-color: lightpink;
+    border-radius: 10px;
+    padding-left: 70px;
+    text-align: left;
+    color: red;
+    font-weight: bold;
+}
+
+.no-yaku-message {
+    padding: 12px;
+    border: 1px solid red;
+    background-color: lightpink;
+    border-radius: 10px;
+    text-align: center;
+    color: red;
+    font-weight: bold;
+}
+
+.yakuman-container {
+    padding: 5px;
+    border: 1px solid orange;
+    background-color: gold;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.yakuman-type {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 30px;
+    text-align: right;
+}
+
+.yaku-list-container {
+    margin-top: 12px;
+}
+
+.yaku-title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.yaku-contents {
+    list-style: none;
+    font-size: 24px;
+    margin-left: 10%;
+    margin-bottom: 10px;
+    text-align: left;
+    padding: 4px;
+}
+
+.normal-container {
+    padding: 5px;
+    border: 1px solid blue;
+    background-color: skyblue;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.score-info-container {
+    display: flex;
+    border-top: 1px solid blue;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+}
+
+.fu-han-info {
+    font-size: 20px;
+    font-weight: bold;
+    color: blue;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.score-info {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 20px;
+    color: green;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

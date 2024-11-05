@@ -1,5 +1,5 @@
 import React from 'react';
-import '../App.css';
+import './HandContainer.css';
 
 interface HandContainerProps {
     label: string;

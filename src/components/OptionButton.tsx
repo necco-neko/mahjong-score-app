@@ -1,5 +1,5 @@
 import React from 'react';
-import '../App.css';
+import './OptionButton.css';
 
 interface OptionButton1Props {
     label: string;

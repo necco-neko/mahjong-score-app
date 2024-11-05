@@ -176,7 +176,7 @@ const App: React.FC = () => {
         setIsChiho={setIsChiho}
       />
       {/*麻雀牌の選択肢*/}
-      <div className="tiles-row">
+      <div className="tiles-row-option">
         {tilesData.map((tile, index) => (
           <img key={index} src={tile.src} alt={`Tiles ${index + 1}`} onClick={() => handleTilesClick(tile.src)} className="tiles" />
         ))}
@@ -198,6 +198,7 @@ const App: React.FC = () => {
         <button onClick={resetAll}>全リセット</button>
         <button onClick={calculateScore}>計算する</button>
       </div>
+      {/*計算結果*/}
       <CalculateResult calculationResult={calculationResult} isRon={isRon} />
     </div>
   )

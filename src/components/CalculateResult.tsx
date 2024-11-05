@@ -1,4 +1,5 @@
 import React from "react";
+import './CalculateResult.css';
 
 interface ScoreCalculationResult {
     status: "invalid" | "yakuman" | "noYaku" | "normal";

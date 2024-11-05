@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../App.css';
+import './OptionButtonContainer.css';
 import { OptionButton1, OptionButton2} from './OptionButton';
 
 interface OptionButtonContainerProps {

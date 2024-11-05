@@ -1,0 +1,40 @@
+.hand-container {
+    display: flex;
+    align-items: center;
+}
+
+.hand-label {
+    width: 150px;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: right;
+    margin-right: 10px;
+}
+
+.tiles-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.selected-tiles {
+    width: 47px;
+    height: 63px;
+    border: 2px solid white;
+    margin-right: -2px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.selected-tiles img {
+    width: 47px;
+    height: 63px;
+    margin: 5px;
+    cursor: pointer;
+    object-fit: cover;
+}

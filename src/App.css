@@ -1,5 +1,5 @@
 body {
-  min-width: 800px;
+  min-width: 900px;
   background-color: green;
   margin: 0;
 }
@@ -15,54 +15,15 @@ body {
   margin-bottom: 20px;
 }
 
-.option-container {
+.tiles-row-option {
   display: grid;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.naki-option-set {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  font-size: 30px;
-  font-weight: bold;
-  margin: 5px 0;
-  width: 100%;
-}
-
-.naki-option-set label {
-  width: 150px;
-  text-align: right;
-  margin-right: 5px;
-}
-
-.option-button {
-  border: 1px solid gray;
-  background-color: gray;
-  cursor: pointer;
-  font-size: 30px;
-  font-weight: bold;
-  border-radius: 10px;
-  margin: 5px;
-  padding: 10px;
-}
-
-.option-button.selected {
-  border: 1px solid white;
-  background-color: white;
-  cursor: pointer;
-}
-
-.tiles-row {
-  display: flex;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(9, 60px);
   justify-content: center;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
-.tiles, selected-tiles img {
+.tiles {
   width: 47px;
   height: 63px;
   margin: 5px;
@@ -70,54 +31,8 @@ body {
   object-fit: cover;
 }
 
-.error-text {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.hand-container {
-  display: flex;
-  align-items: center;
-}
-
-.kan-container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.kan-checkbox {
-  margin-top: -25px;
-  margin-left: 10px;
-  transform: scale(1.5); /* チェックボックスを大きく */
-}
-
-.kan-label {
-  font-size: 24px; /* フォントサイズを大きく */
-  font-weight: bold; /* フォントを太字に */
-  margin-top: -30px;
-  margin-left: 5px;
-}
-
-.selected-tiles {
-  width: 47px;
-  height: 63px;
-  border: 2px solid white;
-  margin-right: -2px;
-  margin-bottom: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-.hand-label {
-  width: 111px;
-  font-size: 24px;
-  font-weight: bold;
-  text-align: right;
-  margin-right: 10px;
-  margin-top: -30px;
+.tiles-row .tiles:nth-child(9n+1) {
+  clear: left;
 }
 
 .button-container {
@@ -125,6 +40,18 @@ body {
   justify-content: flex-end;
   gap: 10px;
   margin: 20px;
+}
+
+@media (min-width: 1000px) {
+  .button-container {
+    margin-right: 10%;
+  }
+}
+
+@media (min-width: 1300px) {
+  .button-container {
+    margin-right: 20%;
+  }
 }
 
 .button-container button {
@@ -139,266 +66,4 @@ body {
 
 .button-container button:hover {
   background-color: lightgray;
-}
-
-.reset-button {
-  margin-left: 80%;
-  margin-top: 20px;
-  border: 1px solid white;
-  background-color: white;
-  font-size: 30px;
-  font-weight: bold;
-  border-radius: 10px;
-}
-
-.other-options-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
-  width: 100%;
-}
-
-.dropdown-button {
-  font-size: 24px;
-  font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 10px;
-  background-color: white;
-  border: 1px solid white;
-  cursor: pointer;
-  width: 400px;
-  text-align: center;
-}
-
-.checkbox-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-top: 10px;
-  width: 400px;
-}
-
-.checkbox-container label {
-  display: flex;
-  align-items: center;
-  margin: 5px 0;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.checkbox-container input[type="checkbox"] {
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
-}
-
-.checkbox-container input:disabled + span {
-  color: gray;
-}
-
-.wind-option {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  position: relative;
-}
-
-.wind-option label {
-  font-size: 30px;
-  font-weight: bold;
-  margin-left: 10px;
-}
-
-.wind-option > div {
-  position: relative;
-}
-
-.wind-button {
-  font-size: 24px;
-  font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 10px;
-  background-color: white;
-  border: 1px solid white;
-  cursor: pointer;
-  width: 100px;
-  text-align: center;
-}
-
-.wind-dropdown-menu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  font-size: 24px;
-  font-weight: bold;
-  background-color: white;
-  border: 1px solid white;
-  border-radius: 5px;
-  z-index: 1000;
-  width: 100px;
-}
-
-.wind-dropdown-menu div {
-  padding: 10px;
-  cursor: pointer;
-}
-
-.wind-dropdown-menu div:hover {
-  background-color: lightgray;
-  cursor: pointer;
-}
-
-.dora-option {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  font-size: 30px;
-  font-weight: bold;
-  margin: 5px 0;
-  width: 100%;
-}
-
-.dora-option label {
-  width: 150px;
-  text-align: right;
-  margin-right: 5px;
-}
-
-.dora-button {
-  font-size: 24px;
-  font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 10px;
-  background-color: white;
-  border: 1px solid white;
-  cursor: pointer;
-  width: 100px;
-  text-align: center;
-}
-
-.dora-dropdown-menu {
-  position: absolute;
-  top: 100%;
-  right: 180px; /*無理やりすぎる設定*/
-  font-size: 24px;
-  font-weight: bold;
-  background-color: white;
-  border: 1px solid white;
-  border-radius: 5px;
-  z-index: 1000;
-  width: 100px;
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-.dora-dropdown-menu div {
-  padding: 10px;
-  cursor: pointer;
-}
-
-.dora-dropdown-menu div:hover {
-  background-color: lightgray;
-  cursor: pointer;
-}
-
-.score-container {
-  padding: 16px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  max-width: 500px;
-  margin: 50px auto;
-}
-
-.invalid-message{
-  white-space: pre-line;
-  padding: 12px;
-  border: 1px solid red;
-  background-color: lightpink;
-  border-radius: 10px;
-  padding-left: 70px;
-  text-align: left;
-  color: red;
-  font-weight: bold;
-}
-
-.no-yaku-message {
-  padding: 12px;
-  border: 1px solid red;
-  background-color: lightpink;
-  border-radius: 10px;
-  text-align: center;
-  color: red;
-  font-weight: bold;
-}
-
-.yakuman-container {
-  padding: 5px;
-  border: 1px solid orange;
-  background-color: gold;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.yakuman-type {
-  font-size: 30px;
-  font-weight: bold;
-  margin: 30px;
-  text-align: right;
-}
-
-.yaku-list-container {
-  margin-top: 12px;
-}
-
-.yaku-title {
-  font-size: 30px;
-  font-weight: bold;
-  margin-bottom: 30px;
-  text-align: center;
-}
-
-.yaku-contents {
-  list-style: none;
-  font-size: 24px;
-  margin-left: 10%;
-  margin-bottom: 10px;
-  text-align: left;
-  padding: 4px;
-}
-
-.normal-container {
-  padding: 5px;
-  border: 1px solid blue;
-  background-color: skyblue;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.score-info-container {
-  display: flex;
-  border-top: 1px solid blue;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 20px;
-}
-
-.fu-han-info {
-  font-size: 20px;
-  font-weight: bold;
-  color: blue;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.score-info {
-  font-size: 24px;
-  font-weight: bold;
-  margin-right: 20px;
-  color: green;
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
