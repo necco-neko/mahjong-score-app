@@ -107,7 +107,7 @@ const checkHandValues = (
 
     //字一色
     if (isTsuiso(tileCount)) {
-        return { yakuList, bestStructure: null };
+        yakuList.push("字一色");
     }
 
     //大三元
