@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "麻雀点数計算ツール",
+  "name": "麻雀点数計算ツール - 点数計算アプリ",
   "icons": [
     {
       "src": "favicon.ico",
