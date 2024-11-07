@@ -7,6 +7,7 @@ interface OtherOptionsProps {
     isRon: boolean;
     isKan: boolean;
     isIppatsu: boolean;
+    jikaze: string,
     setIsIppatsu: (value: boolean) => void;
     isDoubleriichi: boolean;
     setIsDoubleriichi: (value: boolean) => void;
@@ -30,6 +31,7 @@ const OtherOptions: React.FC<OtherOptionsProps> = ({
     isRon,
     isKan,
     isIppatsu,
+    jikaze,
     setIsIppatsu,
     isDoubleriichi,
     setIsDoubleriichi,
@@ -139,7 +141,7 @@ const OtherOptions: React.FC<OtherOptionsProps> = ({
                             type="checkbox"
                             checked={isTenho}
                             onChange={() => setIsTenho(!isTenho)}
-                            disabled={hasCalled || isRiichi || isKan || isRon} //他の条件があるときは失効
+                            disabled={hasCalled || isRiichi || isKan || isRon || jikaze!=="東"} //特定の条件を満たすときは失効
                         />
                         <span>天和</span>
                     </label>
@@ -148,7 +150,7 @@ const OtherOptions: React.FC<OtherOptionsProps> = ({
                             type="checkbox"
                             checked={isChiho}
                             onChange={() => setIsChiho(!isChiho)}
-                            disabled={hasCalled || isRiichi || isKan || isRon} //他の条件があるときは失効
+                            disabled={hasCalled || isRiichi || isKan || isRon || jikaze==="東"} //特定の条件を満たすときは失効
                         />
                         <span>地和</span>
                     </label>

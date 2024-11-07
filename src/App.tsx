@@ -164,6 +164,7 @@ const App: React.FC = () => {
         isRon={isRon}
         isKan={kanCount > 0}
         isIppatsu={isIppatsu}
+        jikaze={jikaze}
         setIsIppatsu={setIsIppatsu}
         isDoubleriichi={isDoubleriichi}
         setIsDoubleriichi={setIsDoubleriichi}
