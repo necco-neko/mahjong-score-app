@@ -14,7 +14,7 @@ interface SelectedTilesRowProps {
 
 export const SelectedTilesRow: React.FC<SelectedTilesRowProps> = ({ ponCount, chiiCount, kanCount, hasCalled, selectedTiles, typeOfKan, setTypeOfKan }) => {
     const nakiCount = ponCount + chiiCount + kanCount
-    const backTileSrc = '/tupai2_1/p_bk_1.gif';
+    const backTileSrc = `${process.env.PUBLIC_URL}/tupai2_1/p_bk_1.gif`;
 
     const getDisplayedTiles = (kanType: boolean) => {
         //明カンならそのまま
