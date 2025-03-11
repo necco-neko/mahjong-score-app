@@ -6,6 +6,7 @@ import OptionButtonContainer from './components/OptionButtonContainer';
 import OtherOptions from './components/OtherOptions';
 import scoreCalculation from './logic/scoreCalculation';
 import CalculateResult from './components/CalculateResult';
+import Footer from './components/Footer';
 
 const App: React.FC = () => {
   //選択オプション
@@ -206,6 +207,9 @@ const App: React.FC = () => {
       </div>
       {/*計算結果*/}
       <CalculateResult calculationResult={calculationResult} isRon={isRon} />
+
+      {/* フッター */}
+      <Footer/>
     </div>
   )
 }
